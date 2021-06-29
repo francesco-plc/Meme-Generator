@@ -2,14 +2,15 @@ import corporate from "../images/corporate.jpg";
 import doge from "../images/doge.jpg";
 import headaches from "../images/headaches.jpg";
 import society from "../images/society.jpg";
-import spongebob from "../images/spongebob.jpg";
+import tuba from "../images/tuba.jpg";
 import they from "../images/they.jpg";
+import better from "../images/better.jpg";
 
 
 const Templates = [
     {
         img: corporate,
-        box_count: 1
+        box_count: 2
     },
     {
         img: doge,
@@ -17,19 +18,23 @@ const Templates = [
     },
     {
         img: headaches,
-        box_count: 3
+        box_count: 1
     },
     {
         img: society,
-        box_count: 4
+        box_count: 2
     },
     {
-        img: spongebob,
-        box_count: 5
+        img: tuba,
+        box_count: 2
     },
     {
         img: they,
-        box_count: 6
+        box_count: 1
+    },
+    {
+        img: better,
+        box_count: 4
     }
 ]
 

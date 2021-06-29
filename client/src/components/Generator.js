@@ -61,10 +61,10 @@ function Generator(props) {
                     <Form className='toolbar below-img width-100'>
                         {/* Title */}
                         <Form.Group as={Row} controlId="title">
-                            <Form.Label column sm={6}>
+                            <Form.Label column xs={4}>
                                 Title
                             </Form.Label>
-                            <Col sm={12}>
+                            <Col xs={8}>
                                 <Form.Control type="text" placeholder="Insert a title" />
                             </Col>
                         </Form.Group>
@@ -72,10 +72,10 @@ function Generator(props) {
                         {
                             capt.map((_c, idx) => (
                                 <Form.Group key={idx} as={Row} controlId={`caption-${idx}`}>
-                                    <Form.Label column sm={6}>
+                                    <Form.Label column xs={4}>
                                         {`Caption ${idx+1}`}
                                     </Form.Label>
-                                    <Col sm={12}>
+                                    <Col xs={8}>
                                         <Form.Control type="text" placeholder="Insert text" />
                                     </Col>
                                 </Form.Group>
