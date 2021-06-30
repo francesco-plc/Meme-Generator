@@ -3,6 +3,7 @@ import {Templates, Colors} from '../models/Templates';
 import {iconLeft, iconRight, iconCheck} from './Icons';
 import { useEffect, useState } from 'react';
 import { CirclePicker } from 'react-color';
+import FontPicker from "font-picker-react";
 import Canvas from './Canvas';
 
 function Generator(props) {
@@ -13,6 +14,7 @@ function Generator(props) {
     const [capt, setCapt] = useState(Array(Templates[count].box_count).fill(''));
     const [temp, setTemp] = useState(Templates[count].img);
     const [color, setColor] = useState(Colors[0]);
+    const [font, setFont] = useState("Open Sans");
 
     const changeIndex = (event) => {
         event.preventDefault();
@@ -73,6 +75,7 @@ function Generator(props) {
                                 temp={temp}
                                 capt={capt}
                                 color={color}
+                                font={font}
                             />
                         </Card.Body>
                         {/* previous/Next button */}
@@ -109,38 +112,47 @@ function Generator(props) {
                             ))
                         }
                         <Form.Group as={Row} controlId="colorPicker" >
-                            <Form.Label column sm={12}>
+                            <Form.Label column xs={4}>
                                 Choose a color:
                             </Form.Label>
-                            <Col sm={12} className="mx-auto">
-                                <CirclePicker width="442px" colors={Colors} color={color} onChangeComplete={handleChangeComplete} />
+                            <Col xs={8}>
+                                <CirclePicker 
+                                    width="294px" 
+                                    circleSize={28}
+                                    colors={Colors} 
+                                    color={color} 
+                                    onChangeComplete={handleChangeComplete} />
                             </Col>
                         </Form.Group>
 
                         <Form.Group as={Row} controlId="colorPicker" >
-                            <Form.Label column sm={12}>
-                                Choose a font
+                            <Form.Label column xs={4}>
+                                Choose a font:
                             </Form.Label>
-                            <Col sm={12} className="mx-auto">
-
+                            <Col xs={8}>
+                                <FontPicker
+                                    id="fontPicker"
+                                    apiKey="AIzaSyAFwi_TzGkfslfTV8Fo35Evk3PQ3UAOG18"
+                                    activeFontFamily={font}
+                                    onChange={(nextFont) => (setFont(nextFont.family))}
+                                />
                             </Col>
                         </Form.Group>
 
                         {/* protected switch */}
-                        <fieldset>
-                            <Form.Group as={Row}>
-                                <Col>
-                                    <Form.Check
-                                        type="switch"
-                                        label="Set as protected"
-                                        name="formSwitch"
-                                        id="private"
-                                        //checked={isPrivate}
-                                        //onChange={handleChange}
-                                    />
-                                </Col>
-                            </Form.Group>
-                        </fieldset>
+                        <Form.Group as={Row}>
+                            <Col xs={1}>
+                                <Form.Check
+                                    type="switch"
+                                    //label="Set as protected"
+                                    name="formSwitch"
+                                    id="private"
+                                //checked={isPrivate}
+                                //onChange={handleChange}
+                                />
+                            </Col>
+                            <Col xs={11}>Set as protected</Col>
+                        </Form.Group>
 
                         <Form.Group as={Row}>
                             <Col className="text-center">

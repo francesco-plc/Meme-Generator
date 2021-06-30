@@ -2,8 +2,8 @@ import React, { useRef, useEffect } from 'react';
 
 function Canvas(props) {
 
+    const { temp, capt, count, color, font } = props;
     const canvasRef = useRef(null);
-    const { temp, capt, count, color } = props;
     const meme = new Image();
 
     useEffect(() => {
@@ -28,8 +28,8 @@ function Canvas(props) {
 
         ctx.canvas.width = window.innerWidth;
         ctx.canvas.height = window.innerHeight;
-
-        ctx.font = "40px Comic Sans MS"
+        /* ctx.font = "40px Comic Sans MS" */
+        ctx.font = `40px ${font}` 
         ctx.fillStyle = color
         ctx.textAlign = "center"
         ctx.drawImage(meme, 0, 0, window.innerWidth, window.innerHeight);
@@ -67,7 +67,7 @@ function Canvas(props) {
                 break;
         };
 
-    }, [capt, color]);
+    }, [capt, color, font]);
 
 
     return <canvas ref={canvasRef} className="canvas" />
