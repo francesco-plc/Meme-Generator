@@ -30,7 +30,7 @@ function DashBoard (props){
             <Row xs={1} md={2} className="g-4 vheight-100 width-100 mx-auto justify-content-center">
                 {Templates.map((e, idx) => (
                     <Col md={4} xs={10} >
-                        <Card bg="light" border="info">
+                        <Card bg="light" border="info" key={idx}>
                             <Card.Img variant="top" src={e.img} />
                             <Card.Body>
                                 <Card.Title>Card title</Card.Title>
