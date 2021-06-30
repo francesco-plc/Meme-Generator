@@ -17,6 +17,7 @@
 
 .toolbar {
   background-color: #17a2b8;
+  color:B;
   padding: 2rem;
   border-radius: 2rem;
   height: 38rem;
@@ -63,4 +64,8 @@
   width: 40%;
 }
 
-
+#doneButton{
+  position: absolute;
+  right: 1rem;
+  bottom: 0;
+}

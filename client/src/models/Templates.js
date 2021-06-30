@@ -14,7 +14,7 @@ const Templates = [
     },
     {
         img: doge,
-        box_count: 2
+        box_count: 4
     },
     {
         img: headaches,
@@ -26,7 +26,7 @@ const Templates = [
     },
     {
         img: tuba,
-        box_count: 2
+        box_count: 3
     },
     {
         img: they,
@@ -38,6 +38,6 @@ const Templates = [
     }
 ]
 
-const Colors = ['#000000', '#FFFFFF', '#DC3545', '#FFC107'];
+const Colors = ['#000000', '#FFFFFF', '#DC3545', '#FFC107', '#FF00FF', '#008000', '#0000FF'/* , '#8A2BE2', '#8ED1FC', '#0BFF00' */];
 
 export {Templates, Colors};

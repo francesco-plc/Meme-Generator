@@ -72,6 +72,7 @@ function Generator(props) {
                                 count={count}
                                 temp={temp}
                                 capt={capt}
+                                color={color}
                             />
                         </Card.Body>
                         {/* previous/Next button */}
@@ -102,7 +103,7 @@ function Generator(props) {
                                         {`Caption ${idx+1}`}
                                     </Form.Label>
                                     <Col xs={8}>
-                                        <Form.Control type="text" placeholder="Insert text" onChange={(e)=>updateCapt(e, idx)}/>
+                                        <Form.Control type="text" as="textarea" placeholder="Insert text" onChange={(e)=>updateCapt(e, idx)}/>
                                     </Col>
                                 </Form.Group>
                             ))
@@ -112,7 +113,7 @@ function Generator(props) {
                                 Choose a color:
                             </Form.Label>
                             <Col sm={12} className="mx-auto">
-                                <CirclePicker colors={Colors} color={color} onChangeComplete={handleChangeComplete} />
+                                <CirclePicker width="442px" colors={Colors} color={color} onChangeComplete={handleChangeComplete} />
                             </Col>
                         </Form.Group>
 
@@ -143,7 +144,7 @@ function Generator(props) {
 
                         <Form.Group as={Row}>
                             <Col className="text-center">
-                                <Button type="submit" variant="danger" >Done {iconCheck} </Button>
+                                <Button type="submit" variant="danger" id="doneButton">Done {iconCheck} </Button>
                             </Col>
                         </Form.Group>
                     </Form>
