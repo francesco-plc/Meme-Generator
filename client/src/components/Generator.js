@@ -15,6 +15,9 @@ function Generator(props) {
     const [temp, setTemp] = useState(Templates[count].img);
     const [color, setColor] = useState(Colors[0]);
     const [font, setFont] = useState("Open Sans");
+    const [size, setSize] = useState(50);
+
+    const [isProtected, setIsProtected] = useState(false);
 
     const changeIndex = (event) => {
         event.preventDefault();
@@ -76,6 +79,7 @@ function Generator(props) {
                                 capt={capt}
                                 color={color}
                                 font={font}
+                                size={size}
                             />
                         </Card.Body>
                         {/* previous/Next button */}
@@ -106,16 +110,16 @@ function Generator(props) {
                                         {`Caption ${idx+1}`}
                                     </Form.Label>
                                     <Col xs={8}>
-                                        <Form.Control type="text" as="textarea" placeholder="Insert text" onChange={(e)=>updateCapt(e, idx)}/>
+                                        <Form.Control rows={2} as="textarea" placeholder="Insert text" onChange={(e)=>updateCapt(e, idx)}/>
                                     </Col>
                                 </Form.Group>
                             ))
                         }
                         <Form.Group as={Row} controlId="colorPicker" >
                             <Form.Label column xs={4}>
-                                Choose a color:
+                                Color:
                             </Form.Label>
-                            <Col xs={8}>
+                            <Col xs={8} className="mt-1">
                                 <CirclePicker 
                                     width="294px" 
                                     circleSize={28}
@@ -127,7 +131,7 @@ function Generator(props) {
 
                         <Form.Group as={Row} controlId="colorPicker" >
                             <Form.Label column xs={4}>
-                                Choose a font:
+                                Font:
                             </Form.Label>
                             <Col xs={8}>
                                 <FontPicker
@@ -138,20 +142,32 @@ function Generator(props) {
                                 />
                             </Col>
                         </Form.Group>
+                        
+                        <Form.Group as={Row} controlId="textRange">
+                            <Form.Label column xs={4}>Size:</Form.Label>
+                            <Col md={4} sm={4} xs={6} className="mt-2">
+                               <input type="range" class="custom-range" id="customRange1" 
+                                min="10" max="120" step="2"
+                                value={size}
+                                onChange={(event) => setSize(event.target.value)}
+                               />
+                            </Col>
+                        </Form.Group>
 
                         {/* protected switch */}
                         <Form.Group as={Row}>
                             <Col xs={1}>
                                 <Form.Check
                                     type="switch"
-                                    //label="Set as protected"
-                                    name="formSwitch"
-                                    id="private"
+                                    id="custom-switch"
+                                    name="formSwitch" 
+                                    onClick={() => setIsProtected(!isProtected)}
+                                    label={isProtected ? 'Protected' : 'Public'}
                                 //checked={isPrivate}
                                 //onChange={handleChange}
                                 />
-                            </Col>
-                            <Col xs={11}>Set as protected</Col>
+                            </Col>{/* 
+                            <Col xs={10} className="text-left">Set as protected</Col> */}
                         </Form.Group>
 
                         <Form.Group as={Row}>
