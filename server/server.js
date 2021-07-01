@@ -77,7 +77,7 @@ app.get('/api/memes/user', isLoggedIn, (req, res) => {
 });
 
 // Retrieve a meme (copy)
-app.get('/api/memes/copy/:id', isLoggedIn, (req, res) => {
+app.get('/api/memes/:id', isLoggedIn, (req, res) => {
   const memeId = req.params.id;
   dao.getMeme(memeId)
     .then((memes) => { res.json(memes); })
