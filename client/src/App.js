@@ -99,16 +99,18 @@ function App() {
       /* setShowAlert(false); */
       setLoggedIn(false);
       setUserInfo('');
+      routerHistory.push('/');
     }).catch((err) => console.log(err));
   };
 
   return (
-    <Router>
+    <>
       <NavBar
         loggedIn={loggedIn}
         userInfo={userInfo}
       />
-        <Switch>
+      <div>
+      <Switch>
           <Route exact path="/">
           {loading ? <span> 🕗 Please wait, loading some memes... 🕗 </span>
            : (
@@ -149,7 +151,9 @@ function App() {
             <LoginForm doLogIn={doLogIn} />
           </Route>
         </Switch>
-    </Router>
+      </div>
+        
+    </>
   );
 }
 
