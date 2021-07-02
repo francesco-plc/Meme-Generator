@@ -1,23 +1,29 @@
 import {Container, Row, Col, Form, Button, Card} from 'react-bootstrap';
 import {Templates, Colors} from '../models/Templates';
 import {iconLeft, iconRight, iconCheck} from './Icons';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { CirclePicker } from 'react-color';
 import FontPicker from "font-picker-react";
 import Canvas from './Canvas';
+import Meme from '../models/Meme'
 
 function Generator(props) {
 
     //const {copy} = props;
+    const {addMeme} = props;
     
-    const [count, setCount] = useState(0);
-    const [capt, setCapt] = useState(Array(Templates[count].box_count).fill(''));
-    const [temp, setTemp] = useState(Templates[count].img);
-    const [color, setColor] = useState(Colors[0]);
-    const [font, setFont] = useState("Open Sans");
-    const [size, setSize] = useState(50);
+    const [count, setCount] = useState(0);                                              // templates array index
+    const [title, setTitle] = useState('');
+    const [capt, setCapt] = useState(Array(Templates[count].box_count).fill(''));       // captions array 
+    const [temp, setTemp] = useState(Templates[count].img);                             // template set
+    const [color, setColor] = useState(Colors[0]);                                      // color set
+    const [font, setFont] = useState("Open Sans");                                      // font set
+    const [size, setSize] = useState(50);                                               // font size set
+    const [isProtected, setIsProtected] = useState(false);                              // public/protected attribute
+    const [image, setImage] = useState();
+    const canvasRef = useRef(null);
 
-    const [isProtected, setIsProtected] = useState(false);
+    const[isInvalid, setIsInvalid] = useState(false);                                       // variable to check if title and at least one caption are filled
 
     const changeIndex = (event) => {
         event.preventDefault();
@@ -36,11 +42,16 @@ function Generator(props) {
         }
     };
 
+    const handleTitle = (event)=>{
+        setTitle(event.target.value);
+        setIsInvalid(false);
+    };
+
     const updateCapt = (e, idx) =>{
         const text = e.target.value || '';
         setCapt(
             capt.map((c, i) => {
-                if(idx ===i){
+                if(idx === i){
                     return text
                 }else{
                     return c;
@@ -52,6 +63,36 @@ function Generator(props) {
     const handleChangeComplete = (color, event) => {
         setColor(color.hex);
     };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const resultImg = new Image();       
+        canvasRef.current.toBlob((blob) => {
+            resultImg.src = URL.createObjectURL(blob);
+        }, `${title}/jpeg`);
+        setImage(resultImg.src);
+        console.log(image);
+        /* if((title !== '') && capt.some(text => text !== '')){
+            addMeme(
+                new Meme(
+                    count,
+                    title,
+                    capt[0],
+                    capt[1],
+                    capt[2],
+                    capt[3],
+                    color,
+                    font,
+                    size,
+                    isProtected,
+                     image,
+                    0,
+                )
+            );
+        } else {
+            setIsInvalid(true);
+        } */
+    }
 
     useEffect(() => {
         console.log(Templates[count]);
@@ -80,6 +121,7 @@ function Generator(props) {
                                 color={color}
                                 font={font}
                                 size={size}
+                                canvasRef={canvasRef}
                             />
                         </Card.Body>
                         {/* previous/Next button */}
@@ -99,7 +141,8 @@ function Generator(props) {
                                 Title
                             </Form.Label>
                             <Col xs={8}>
-                                <Form.Control type="text" placeholder="Insert a title" />
+                                <Form.Control type="text" placeholder="Insert a title"isInvalid={isInvalid} onChange={handleTitle/* (e)=>setTitle(e.target.value) */}/>
+                                <Form.Control.Feedback type="invalid">Title must be provided.</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
                         {/* Caption boxes */}
@@ -146,7 +189,7 @@ function Generator(props) {
                         <Form.Group as={Row} controlId="textRange">
                             <Form.Label column xs={4}>Size:</Form.Label>
                             <Col md={4} sm={4} xs={6} className="mt-2">
-                               <input type="range" class="custom-range" id="customRange1" 
+                               <input type="range" className="custom-range" id="customRange1" 
                                 min="10" max="120" step="2"
                                 value={size}
                                 onChange={(event) => setSize(event.target.value)}
@@ -172,7 +215,7 @@ function Generator(props) {
 
                         <Form.Group as={Row}>
                             <Col className="text-center">
-                                <Button type="submit" variant="danger" id="doneButton">Done {iconCheck} </Button>
+                                <Button type="submit" variant="danger" id="doneButton" onClick={handleSubmit}> Done {iconCheck} </Button>
                             </Col>
                         </Form.Group>
                     </Form>

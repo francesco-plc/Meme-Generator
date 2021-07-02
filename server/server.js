@@ -110,7 +110,7 @@ app.post('/api/memes', isLoggedIn, async (req, res) => {
 });
 
 // delete a meme
-app.deleteMeme('/api/memes/:id', isLoggedIn, async (req, res) => {
+app.delete('/api/memes/:id', isLoggedIn, async (req, res) => {
   const userId = req.user.id;
   const memeId = req.params.id;
 

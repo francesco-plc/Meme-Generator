@@ -1,9 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 function Canvas(props) {
 
-    const { temp, capt, count, color, font, size } = props;
-    const canvasRef = useRef(null);
+    const { temp, capt, count, color, font, size, canvasRef } = props;
     const meme = new Image();
 
     useEffect(() => {

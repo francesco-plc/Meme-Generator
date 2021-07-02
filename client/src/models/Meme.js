@@ -1,6 +1,6 @@
 
 class Meme {
-    constructor(id, id_template, title, text0, text1, text2, text3, color, font, size, protected, image, user) {
+    constructor(id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected, image, user) {
         this.id = id;
         this.id_template = id_template;
         this.title = title;
@@ -11,7 +11,7 @@ class Meme {
         this.color = color;
         this.font = font;
         this.size = size;
-        this.protected = protected;
+        this.isProtected = isProtected;
         this.image = image;
         this.user = user;
     }
@@ -23,3 +23,4 @@ class Meme {
       }
 }
 
+export default Meme;
