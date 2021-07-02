@@ -1,8 +1,10 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';/* 
-import { Switch, Route, useHistory } from 'react-router-dom'; */
+/* import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'; */
+/* import { Switch, Route, useHistory } from 'react-router-dom'; */
+import { Switch, Route, useHistory, BrowserRouter as Router } from 'react-router-dom';
+import { AccountInfo, LoginForm } from './components/Account';
 import NavBar from './components/Navbar';
 import DashBoard from './components/DashBoard';
 import Generator from './components/Generator';
@@ -15,23 +17,51 @@ function App() {
   const [dirty, setDirty] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState('');
+  const routerHistory = useHistory();
 
   // Rehydrate tasks at mount time
   useEffect(()=>{
     API.loadPublicMemes().then((newM) => {setMemes(newM);});
   }, []);
 
+  useEffect(() => {
+    API.getUserInfo().then((user) => {
+      setUserInfo(user.name);
+      setLoggedIn(true);
+      setLoading(true);
+      setDirty(true);
+    }).catch((err) => console.log(err));
+  }, []);
+
   // Rehydrate tasks at mount time, and when tasks are updated
   useEffect(() => {
-    if (memes.length && dirty) {
-      API.loadPublicMemes().then(newM => {
-        setMemes(newM);
-        setLoading(false);
-        setDirty(false);
-      });
+    if (dirty && loggedIn) {
+      API.loadAllMemes()
+        .then((fecthedMemes) => {
+          console.log('Load Tasks');
+          setMemes(fecthedMemes);
+          setLoading(false);
+          setDirty(false);
+        }).catch((err) => {
+          setLoading(false);
+          setDirty(false);
+          console.log(err);
+        });
+    } else if (dirty) {
+      API.loadPublicMemes()
+        .then((fecthedMemes) => {
+          console.log('Load Tasks');
+          setMemes(fecthedMemes);
+          setLoading(false);
+          setDirty(false);
+        }).catch((err) => {
+          setLoading(false);
+          setDirty(false);
+          console.log(err);
+        });
     }
     console.log(memes);
-  }, [memes.length, dirty]);
+  }, [dirty, loggedIn]);
 
 
   const addMeme = (meme) => {
@@ -57,7 +87,7 @@ function App() {
       //setShowAlert(true);
       setLoading(true);
       setDirty(true);
-      /* routerHistory.push('/'); */
+      routerHistory.push('/');
     }).catch((err) => {
       //setShowAlert(true);
       console.log(err);
@@ -71,25 +101,55 @@ function App() {
       setUserInfo('');
     }).catch((err) => console.log(err));
   };
-  //const routerHistory = useHistory();
 
   return (
-   <Router>
-     <NavBar/>
-      <Switch>
-        <Route exact path="/">
-          <DashBoard
-            memes={memes}
-            setMemes={setMemes}
-          />
-        </Route>
-        <Route exact path="/create">
-          <Generator 
-            addMeme={addMeme}
-          />
-        </Route>
-      </Switch>
-    </Router> 
+    <Router>
+      <NavBar
+        loggedIn={loggedIn}
+        userInfo={userInfo}
+      />
+        <Switch>
+          <Route exact path="/">
+          {loading ? <span> 🕗 Please wait, loading some memes... 🕗 </span>
+           : (
+           <DashBoard
+              memes={memes}
+              setMemes={setMemes}
+            />)
+          }
+          </Route>
+
+          <Route exact path="/create">
+            {
+              loggedIn ? (
+                <Generator
+                  addMeme={addMeme}
+                />
+              ) : (
+                <LoginForm doLogIn={doLogIn} />
+              )
+            }
+          </Route>
+
+          <Route exact path="/account">
+            
+            {
+              loggedIn ? (
+                <AccountInfo
+                  userInfo={userInfo}
+                  doLogOut={doLogOut}
+                />
+              ) : (
+                <LoginForm doLogIn={doLogIn} />
+              )
+            }
+          </Route>
+
+          <Route exact path="/login">
+            <LoginForm doLogIn={doLogIn} />
+          </Route>
+        </Switch>
+    </Router>
   );
 }
 

@@ -66,7 +66,7 @@ function Canvas(props) {
                 break;
         };
 
-    }, [capt, color, font, size]);
+    }, [capt, color, font, size, temp]);
 
 
     return <canvas ref={canvasRef} className="canvas" />

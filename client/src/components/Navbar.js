@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { iconLogo, iconUser } from './Icons';
 
 function NavBar(props){
+
+    const { loggedIn, userInfo } = props;
+
     return(
         <Navbar bg="dark" variant="dark" fixed="top" className="nav">
             {/* NavBar Logo & Title */}
@@ -22,10 +25,15 @@ function NavBar(props){
                     </Link>
                 </Nav>
                 <Navbar.Text className="mr-2">
-                    <small>Welcome! <a href="#login">Mark Otto</a></small> 
+                    {loggedIn ? (
+                        <small>Welcome! <Link to="/account"><a>{userInfo}</a></Link></small>
+                        ) : (<Link to="/login">
+                             <a>Login</a>   
+                        </Link>)
+                    }                  
                 </Navbar.Text>                 
                 {/* Account Button */}
-                <NavLink to="/Account" className="text-info">{iconUser}</NavLink>
+                <NavLink to="/account" className="text-info">{iconUser}</NavLink>
             </Navbar.Collapse>
         </Navbar>
     );

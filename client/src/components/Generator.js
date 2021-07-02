@@ -20,10 +20,11 @@ function Generator(props) {
     const [font, setFont] = useState("Open Sans");                                      // font set
     const [size, setSize] = useState(50);                                               // font size set
     const [isProtected, setIsProtected] = useState(false);                              // public/protected attribute
-    const [image, setImage] = useState();
+    const [image, setImage] = useState(new Image().src);
     const canvasRef = useRef(null);
 
-    const[isInvalid, setIsInvalid] = useState(false);                                       // variable to check if title and at least one caption are filled
+    const[isTitleInvalid, setIsTitleInvalid] = useState(false);                         // variable to check if title is filled
+    const[isCaptInvalid, setIsCaptInvalid] = useState(false);
 
     const changeIndex = (event) => {
         event.preventDefault();
@@ -44,7 +45,7 @@ function Generator(props) {
 
     const handleTitle = (event)=>{
         setTitle(event.target.value);
-        setIsInvalid(false);
+        setIsTitleInvalid(false);
     };
 
     const updateCapt = (e, idx) =>{
@@ -58,6 +59,7 @@ function Generator(props) {
                 }
             })
         );
+        setIsCaptInvalid(false);
     };
 
     const handleChangeComplete = (color, event) => {
@@ -66,13 +68,15 @@ function Generator(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const resultImg = new Image();       
-        canvasRef.current.toBlob((blob) => {
-            resultImg.src = URL.createObjectURL(blob);
-        }, `${title}/jpeg`);
-        setImage(resultImg.src);
+/*         let resultImg = new Image();       
+        resultImg = canvasRef.current.toDataURL();
+        setImage(resultImg); */
+/*         canvasRef.current.toBlob((blob) => {
+            image.src = URL.createObjectURL(blob);
+        }, `${title}/jpeg`); */
+        setImage(canvasRef.current.toDataURL());
         console.log(image);
-        /* if((title !== '') && capt.some(text => text !== '')){
+        if((title !== '') && capt.some(text => text !== '')){
             addMeme(
                 new Meme(
                     count,
@@ -85,13 +89,14 @@ function Generator(props) {
                     font,
                     size,
                     isProtected,
-                     image,
+                    image,
                     0,
                 )
             );
         } else {
-            setIsInvalid(true);
-        } */
+            setIsTitleInvalid(true);
+            setIsCaptInvalid(true);
+        }
     }
 
     useEffect(() => {
@@ -141,7 +146,7 @@ function Generator(props) {
                                 Title
                             </Form.Label>
                             <Col xs={8}>
-                                <Form.Control type="text" placeholder="Insert a title"isInvalid={isInvalid} onChange={handleTitle/* (e)=>setTitle(e.target.value) */}/>
+                                <Form.Control type="text" placeholder="Insert a title" isInvalid={isTitleInvalid} onChange={handleTitle/* (e)=>setTitle(e.target.value) */}/>
                                 <Form.Control.Feedback type="invalid">Title must be provided.</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
@@ -153,7 +158,10 @@ function Generator(props) {
                                         {`Caption ${idx+1}`}
                                     </Form.Label>
                                     <Col xs={8}>
-                                        <Form.Control rows={2} as="textarea" placeholder="Insert text" onChange={(e)=>updateCapt(e, idx)}/>
+                                        <Form.Control rows={2} as="textarea" placeholder="Insert text"  
+                                            isInvalid={isCaptInvalid} onChange={(e)=>updateCapt(e, idx)}
+                                        />
+                                        <Form.Control.Feedback type="invalid">At least a caption must be provided.</Form.Control.Feedback>
                                     </Col>
                                 </Form.Group>
                             ))
