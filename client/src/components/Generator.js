@@ -13,14 +13,13 @@ function Generator(props) {
     const {addMeme} = props;
     
     const [count, setCount] = useState(0);                                              // templates array index
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState('');                                             // title set
     const [capt, setCapt] = useState(Array(Templates[count].box_count).fill(''));       // captions array 
     const [temp, setTemp] = useState(Templates[count].img);                             // template set
     const [color, setColor] = useState(Colors[0]);                                      // color set
     const [font, setFont] = useState("Open Sans");                                      // font set
     const [size, setSize] = useState(50);                                               // font size set
-    const [isProtected, setIsProtected] = useState(false);                              // public/protected attribute
-    const [image, setImage] = useState();
+    const [isProtected, setIsProtected] = useState(0);                              // public/protected attribute
     const canvasRef = useRef(null);
 
     const[isTitleInvalid, setIsTitleInvalid] = useState(false);                         // variable to check if title is filled
@@ -66,39 +65,23 @@ function Generator(props) {
         setColor(color.hex);
     };
 
-    function dataURLtoBlob(dataurl) {
-        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-        while(n--){
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new Blob([u8arr], {type:mime});
-    }
+    const handlePrivacy = () => {
+        if(isProtected === 0){
+            setIsProtected(1);
+        }else{
+            setIsProtected(0);
+        };
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-/*         let resultImg = new Image();       
-        resultImg = canvasRef.current.toDataURL();
-        setImage(resultImg); */
-
-/*         canvasRef.current.toBlob((blob) => {
-            image.src = URL.createObjectURL(blob);
-        }, "image/png"); */
-
-        /* const dataUrl = canvasRef.current.toDataURL("image/png");
-        const buffer = Buffer.from(dataUrl.split(",")[1], 'base64');
-        setImage(buffer); */
-
-        const blob = dataURLtoBlob(canvasRef.current.toDataURL("image/png"));
-        
-        setImage(blob);
-
+        const id =  Date.now();
+        const image = canvasRef.current.toDataURL();
         console.log(image);
         if((title !== '') && capt.some(text => text !== '')){
             addMeme(
                 new Meme(
-                    0,
+                    id,
                     count,
                     title,
                     capt[0],
@@ -108,8 +91,9 @@ function Generator(props) {
                     color,
                     font,
                     size,
-                    isProtected,
+                    isProtected ? 1 : 0,
                     image,
+                    0
                 )
             );
         } else {
@@ -130,7 +114,7 @@ function Generator(props) {
 
 
 
-
+    console.log(isProtected);
     return(
         <Container fluid className='below-nav width-100 generator'>
             <Row className="justify-content-center vheight-100">
@@ -231,7 +215,7 @@ function Generator(props) {
                                     type="switch"
                                     id="custom-switch"
                                     name="formSwitch" 
-                                    onClick={() => setIsProtected(!isProtected)}
+                                    onClick={handlePrivacy}
                                     label={isProtected ? 'Protected' : 'Public'}
                                 //checked={isPrivate}
                                 //onChange={handleChange}

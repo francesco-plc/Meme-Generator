@@ -27,7 +27,7 @@ exports.getAllMemes = () => new Promise((resolve, reject) => {
                 color: m.color,
                 font: m.font,
                 size: m.size,
-                protected: m.isProtected,
+                isProtected: m.isProtected,
                 image: m.image,
                 user: m.user,
             }));
@@ -38,7 +38,7 @@ exports.getAllMemes = () => new Promise((resolve, reject) => {
 
 //get all public memes
 exports.getPublicMemes = () => new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM memes WHERE protected = 0';
+    const sql = 'SELECT * FROM memes WHERE isProtected = 0';
     db.all(sql, [], (err, rows) => {
         if (err) {
             reject(err);
@@ -57,7 +57,7 @@ exports.getPublicMemes = () => new Promise((resolve, reject) => {
                 color: m.color,
                 font: m.font,
                 size: m.size,
-                protected: m.isProtected,
+                isProtected: m.isProtected,
                 image: m.image,
                 user: m.user,
             }));
@@ -86,7 +86,7 @@ exports.getUserMemes = (user) => new Promise((resolve, reject) => {
                 color: m.color,
                 font: m.font,
                 size: m.size,
-                protected: m.isProtected,
+                isProtected: m.isProtected,
                 image: m.image,
                 user: m.user,
             }));
@@ -97,7 +97,7 @@ exports.getUserMemes = (user) => new Promise((resolve, reject) => {
 
 //add a meme
 exports.addMeme = (userId, meme) => new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO memes (id, id_template, title, text0, text1, text2, text3, color, font, size, protected, image, user) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    const sql = 'INSERT INTO memes (id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected, image, user) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
     db.run(sql, [
         this.lastID,
         meme.id_template,
@@ -142,7 +142,7 @@ exports.getMeme = (memeId) => new Promise((resolve, reject) => {
             color: row.color,
             font: row.font,
             size: row.size,
-            protected: row.isProtected,
+            isProtected: row.isProtected,
             image: row.image,
             user: row.user
         };

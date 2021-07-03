@@ -32,13 +32,15 @@ function DashBoard (props){
         <Container fluid className='dashboard'>
             <Row xs={1} md={2} className="g-4 vheight-100 width-100 mx-auto justify-content-center">
                 {memes.map((m, idx) => (
-                    <Col md={4} xs={10} >
+                    <Col md={4} xs={10} key={idx}>
                         <Card bg="light" border="info" key={idx}>
-                            <Card.Img variant="top" src={`data:${m.image.mimetype};base64,${Buffer.from(m.image.data).toString('base64')}`} />
+                            <Card.Img variant="top" src={m.image}/* src={`data:${m.image.mimetype};base64,${Buffer.from(m.image.data).toString('base64')}`} */ />
                             <Card.Body>
                                 <Card.Title>{m.title}</Card.Title>
                                 <Card.Text>
-                                    Posted by user {m.user}
+                                    Posted by: {m.user} 
+                                    <br></br>
+                                    Privacy: {m.isProtected}
                                 </Card.Text>
                                 <Button  variant="danger" className="float-right"> {iconSteal} Steal?  </Button>
                             </Card.Body>

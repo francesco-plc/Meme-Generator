@@ -94,15 +94,7 @@ app.get('/api/memes/:id', isLoggedIn, (req, res) => {
 });
 
 // Create a new meme
-app.post('/api/memes', isLoggedIn, [
-  check(['user']).isInt(),
-  check(['id']).isInt(),
-  check(['id_template']).isInt(),
-], async (req, res) => {
-  const errors = validationResult(req).formatWith(errorFormatter); // format error message
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ error: errors.array().join(", ")  }); // error message is a single string with all error joined together
-  }
+app.post('/api/memes', isLoggedIn, async (req, res) => {
   const userId = req.user.id;
   const text0 = req.body.text0 === undefined ? null : req.body.text0;
   const text1 = req.body.text1 === undefined ? null : req.body.text1;
@@ -118,13 +110,13 @@ app.post('/api/memes', isLoggedIn, [
     color: req.body.color,
     font: req.body.font,
     size: req.body.size,
-    protected: req.body.isProtected,
+    isProtected: req.body.isProtected,
     image: req.body.image,
   };
 
   try {
-    const result = await dao.addMeme(userId, meme);
-    res.json(result);
+    await dao.addMeme(userId, meme);
+    res.status(201).end();
   } catch (err) {
     res.status(503).json({ error: `Database error during the creation of meme: ${meme.title}.` });
   }
