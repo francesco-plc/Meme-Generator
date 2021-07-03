@@ -69,7 +69,7 @@ async function addNewMeme(meme) {
             color: meme.color,
             font: meme.font,
             size: meme.size,
-            protected: meme.isProtected,
+            isProtected: meme.isProtected,
             image: meme.image,
         }),
     });

@@ -1,6 +1,6 @@
 
 class Meme {
-    constructor(id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected = 0, image, user) {
+    constructor(id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected = false, image, user) {
         this.id = id;
         this.id_template = id_template;
         this.title = title;

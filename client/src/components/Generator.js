@@ -19,7 +19,7 @@ function Generator(props) {
     const [color, setColor] = useState(Colors[0]);                                      // color set
     const [font, setFont] = useState("Open Sans");                                      // font set
     const [size, setSize] = useState(50);                                               // font size set
-    const [isProtected, setIsProtected] = useState(0);                              // public/protected attribute
+    const [isProtected, setIsProtected] = useState(false);                              // public/protected attribute
     const canvasRef = useRef(null);
 
     const[isTitleInvalid, setIsTitleInvalid] = useState(false);                         // variable to check if title is filled
@@ -65,14 +65,6 @@ function Generator(props) {
         setColor(color.hex);
     };
 
-    const handlePrivacy = () => {
-        if(isProtected === 0){
-            setIsProtected(1);
-        }else{
-            setIsProtected(0);
-        };
-    };
-
     const handleSubmit = (event) => {
         event.preventDefault();
         const id =  Date.now();
@@ -91,7 +83,7 @@ function Generator(props) {
                     color,
                     font,
                     size,
-                    isProtected ? 1 : 0,
+                    isProtected,
                     image,
                     0
                 )
@@ -215,7 +207,7 @@ function Generator(props) {
                                     type="switch"
                                     id="custom-switch"
                                     name="formSwitch" 
-                                    onClick={handlePrivacy}
+                                    onClick={() => setIsProtected(!isProtected)}
                                     label={isProtected ? 'Protected' : 'Public'}
                                 //checked={isPrivate}
                                 //onChange={handleChange}
