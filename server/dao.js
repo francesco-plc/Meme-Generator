@@ -27,7 +27,7 @@ exports.getAllMemes = () => new Promise((resolve, reject) => {
                 color: m.color,
                 font: m.font,
                 size: m.size,
-                protected: m.protected,
+                protected: m.isProtected,
                 image: m.image,
                 user: m.user,
             }));
@@ -57,7 +57,7 @@ exports.getPublicMemes = () => new Promise((resolve, reject) => {
                 color: m.color,
                 font: m.font,
                 size: m.size,
-                protected: m.protected,
+                protected: m.isProtected,
                 image: m.image,
                 user: m.user,
             }));
@@ -86,7 +86,7 @@ exports.getUserMemes = (user) => new Promise((resolve, reject) => {
                 color: m.color,
                 font: m.font,
                 size: m.size,
-                protected: m.protected,
+                protected: m.isProtected,
                 image: m.image,
                 user: m.user,
             }));
@@ -109,7 +109,7 @@ exports.addMeme = (userId, meme) => new Promise((resolve, reject) => {
         meme.color,
         meme.font,
         meme.size,
-        meme.protected,
+        meme.isProtected,
         meme.image,
         userId],
         (err) => {
@@ -142,7 +142,7 @@ exports.getMeme = (memeId) => new Promise((resolve, reject) => {
             color: row.color,
             font: row.font,
             size: row.size,
-            protected: row.protected,
+            protected: row.isProtected,
             image: row.image,
             user: row.user
         };

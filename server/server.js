@@ -9,6 +9,27 @@ const passportLocal = require('passport-local');
 
 const dao = require('./dao');
 
+const app = express();
+const port = 3001;
+
+app.use(morgan('dev'));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
+app.use(express.json());
+app.use(session({
+  secret: 'qzwsxedcrfvtgbyhnujmikol',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
+  // Format express-validate errors as strings
+  return `${location}[${param}]: ${msg}`;
+};
+
 passport.use(new passportLocal.Strategy((username, password, done) => {
   dao.getUser(username, password).then((user) => {
     if (user) {
@@ -33,8 +54,6 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-const app = express();
-const port = 3001;
 
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -43,16 +62,6 @@ const isLoggedIn = (req, res, next) => {
   return res.status(401).json({ message: 'not authenticated' });
 };
 
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(session({
-  secret: 'qzwsxedcrfvtgbyhnujmikol',
-  resave: false,
-  saveUninitialized: false,
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Retrieve ALL created memes (both PUBLIC and PROTECTED)
 app.get('/api/memes', isLoggedIn, (req, res) => {
@@ -85,25 +94,37 @@ app.get('/api/memes/:id', isLoggedIn, (req, res) => {
 });
 
 // Create a new meme
-app.post('/api/memes', isLoggedIn, async (req, res) => {
+app.post('/api/memes', isLoggedIn, [
+  check(['user']).isInt(),
+  check(['id']).isInt(),
+  check(['id_template']).isInt(),
+], async (req, res) => {
+  const errors = validationResult(req).formatWith(errorFormatter); // format error message
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ error: errors.array().join(", ")  }); // error message is a single string with all error joined together
+  }
   const userId = req.user.id;
+  const text0 = req.body.text0 === undefined ? null : req.body.text0;
+  const text1 = req.body.text1 === undefined ? null : req.body.text1;
+  const text2 = req.body.text2 === undefined ? null : req.body.text2;
+  const text3 = req.body.text3 === undefined ? null : req.body.text3;
   const meme = {
-    id_template: m.id_template,
+    id_template: req.body.id_template,
     title: req.body.title,
-    text0: req.body.text0,
-    text1: req.body.text1,
-    text2: req.body.text2,
-    text3: req.body.text3,
+    text0: text0,
+    text1: text1,
+    text2: text2,
+    text3: text3,
     color: req.body.color,
     font: req.body.font,
     size: req.body.size,
-    protected: req.body.protected,
+    protected: req.body.isProtected,
     image: req.body.image,
   };
 
   try {
-    await dao.addMeme(userId, meme);
-    res.status(201).end();
+    const result = await dao.addMeme(userId, meme);
+    res.json(result);
   } catch (err) {
     res.status(503).json({ error: `Database error during the creation of meme: ${meme.title}.` });
   }

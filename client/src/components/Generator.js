@@ -20,7 +20,7 @@ function Generator(props) {
     const [font, setFont] = useState("Open Sans");                                      // font set
     const [size, setSize] = useState(50);                                               // font size set
     const [isProtected, setIsProtected] = useState(false);                              // public/protected attribute
-    const [image, setImage] = useState(new Image().src);
+    const [image, setImage] = useState();
     const canvasRef = useRef(null);
 
     const[isTitleInvalid, setIsTitleInvalid] = useState(false);                         // variable to check if title is filled
@@ -66,19 +66,39 @@ function Generator(props) {
         setColor(color.hex);
     };
 
+    function dataURLtoBlob(dataurl) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {type:mime});
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
+
 /*         let resultImg = new Image();       
         resultImg = canvasRef.current.toDataURL();
         setImage(resultImg); */
+
 /*         canvasRef.current.toBlob((blob) => {
             image.src = URL.createObjectURL(blob);
-        }, `${title}/jpeg`); */
-        setImage(canvasRef.current.toDataURL());
+        }, "image/png"); */
+
+        /* const dataUrl = canvasRef.current.toDataURL("image/png");
+        const buffer = Buffer.from(dataUrl.split(",")[1], 'base64');
+        setImage(buffer); */
+
+        const blob = dataURLtoBlob(canvasRef.current.toDataURL("image/png"));
+        
+        setImage(blob);
+
         console.log(image);
         if((title !== '') && capt.some(text => text !== '')){
             addMeme(
                 new Meme(
+                    0,
                     count,
                     title,
                     capt[0],
@@ -90,7 +110,6 @@ function Generator(props) {
                     size,
                     isProtected,
                     image,
-                    0,
                 )
             );
         } else {

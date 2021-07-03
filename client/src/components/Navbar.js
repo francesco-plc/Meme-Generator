@@ -15,6 +15,7 @@ function NavBar(props){
                     {/* {iconLogo}
                     {' '} */}
                     Memes Generator
+                    {/* <small>Your Cheap<br></br>Memes Generator</small> */}
                 </Navbar.Brand>
             </Link>
             <Navbar.Toggle />
@@ -28,7 +29,7 @@ function NavBar(props){
                     {loggedIn ? (
                         <small>Welcome! <Link to="/account"><a>{userInfo}</a></Link></small>
                         ) : (<Link to="/login">
-                             <a>Login</a>   
+                                <a>Login</a>   
                         </Link>)
                     }                  
                 </Navbar.Text>                 

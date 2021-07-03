@@ -38,7 +38,7 @@ function App() {
     if (dirty && loggedIn) {
       API.loadAllMemes()
         .then((fecthedMemes) => {
-          console.log('Load Tasks');
+          console.log('Load All Memes');
           setMemes(fecthedMemes);
           setLoading(false);
           setDirty(false);
@@ -50,7 +50,7 @@ function App() {
     } else if (dirty) {
       API.loadPublicMemes()
         .then((fecthedMemes) => {
-          console.log('Load Tasks');
+          console.log('Load Public Memes');
           setMemes(fecthedMemes);
           setLoading(false);
           setDirty(false);

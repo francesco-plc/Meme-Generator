@@ -60,7 +60,6 @@ async function addNewMeme(meme) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            /* id: meme.id */
             id_template: meme.id_template,
             title: meme.title,
             text0: meme.text0,
@@ -70,7 +69,7 @@ async function addNewMeme(meme) {
             color: meme.color,
             font: meme.font,
             size: meme.size,
-            protected: meme.protected,
+            protected: meme.isProtected,
             image: meme.image,
         }),
     });
