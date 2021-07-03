@@ -69,3 +69,22 @@
   right: 1rem;
   bottom: 1rem;
 }
+
+#o1{
+  font-family: "Arial", sans-serif;
+}
+#o2{
+  font-family: "Lucida Handwriting", cursive;
+}
+#o3{
+  font-family: "Copperplate", fantasy;
+}
+#o4{
+  	font-family: "Courier New", monospace;
+}
+#o5{
+  font-family: "Lucida Console", monospace;
+}
+#o6{
+  font-family: "Times New Romam", Times, serif;
+}

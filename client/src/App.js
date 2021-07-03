@@ -47,7 +47,7 @@ function App() {
           setDirty(false);
           console.log(err);
         });
-    } else if (dirty) {
+    } else if (dirty && !loggedIn) {
       API.loadPublicMemes()
         .then((fecthedMemes) => {
           console.log('Load Public Memes');
@@ -99,7 +99,8 @@ function App() {
       /* setShowAlert(false); */
       setLoggedIn(false);
       setUserInfo('');
-      routerHistory.push('/');
+      routerHistory.push('/');    
+      window.location.reload();
     }).catch((err) => console.log(err));
   };
 
@@ -126,6 +127,7 @@ function App() {
               loggedIn ? (
                 <Generator
                   addMeme={addMeme}
+                  routerHistory={routerHistory}
                 />
               ) : (
                 <LoginForm doLogIn={doLogIn} />

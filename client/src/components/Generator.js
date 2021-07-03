@@ -10,7 +10,7 @@ import Meme from '../models/Meme'
 function Generator(props) {
 
     //const {copy} = props;
-    const {addMeme} = props;
+    const {addMeme, routerHistory} = props;
     
     const [count, setCount] = useState(0);                                              // templates array index
     const [title, setTitle] = useState('');                                             // title set
@@ -88,6 +88,7 @@ function Generator(props) {
                     0
                 )
             );
+            routerHistory.push('/');
         } else {
             setIsTitleInvalid(true);
             setIsCaptInvalid(true);
@@ -180,12 +181,20 @@ function Generator(props) {
                                 Font:
                             </Form.Label>
                             <Col xs={8}>
-                                <FontPicker
+                                {/* <FontPicker
                                     id="fontPicker"
                                     apiKey="AIzaSyAFwi_TzGkfslfTV8Fo35Evk3PQ3UAOG18"
                                     activeFontFamily={font}
                                     onChange={(nextFont) => (setFont(nextFont.family))}
-                                />
+                                /> */}
+                                <Form.Control as="select">
+                                    <option selected id="o1">Arial</option>
+                                    <option value="1" id="o2">Lucida Handwriting</option>
+                                    <option value="2" id="o3">Copperplate</option>
+                                    <option value="3" id="o4">Courier New</option>
+                                    <option value="4" id="o5">Lucida Console</option>
+                                    <option value="5" id="o6">Times New Roman</option>
+                                </Form.Control>
                             </Col>
                         </Form.Group>
                         
@@ -221,9 +230,9 @@ function Generator(props) {
                                 <Button type="submit" variant="danger" id="doneButton" onClick={handleSubmit}> Done {iconCheck} </Button>
                             </Col>
                         </Form.Group>
+                        
                     </Form>
                 </Col>
-                
             </Row>
         </Container>
     );
