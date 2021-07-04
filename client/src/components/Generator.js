@@ -9,7 +9,7 @@ import Meme from '../models/Meme'
 
 function Generator(props) {
 
-    const {addMeme, routerHistory, userId, copyMeme} = props;
+    const {addMeme, copyMeme, routerHistory, userId, userName} = props;
    
     const copy = useLocation().state;
 
@@ -95,7 +95,8 @@ function Generator(props) {
                         size,
                         1,
                         image,
-                        0
+                        0,
+                        userName
                     )
                 );
             }else{
@@ -113,7 +114,8 @@ function Generator(props) {
                         size,
                         isProtected,
                         image,
-                        0
+                        0,
+                        userName
                     )
                 );
             }            

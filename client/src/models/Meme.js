@@ -1,6 +1,6 @@
 
 class Meme {
-    constructor(id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected = false, image, user) {
+    constructor(id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected = false, image, user, username) {
         this.id = id;
         this.id_template = id_template;
         this.title = title;
@@ -14,6 +14,7 @@ class Meme {
         this.isProtected = isProtected;
         this.image = image;
         this.user = user;
+        this.username = username;
     }
 
     static from(json) {

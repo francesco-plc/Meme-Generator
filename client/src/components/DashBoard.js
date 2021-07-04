@@ -69,7 +69,7 @@ function DashBoard (props){
                         <Card.Body>
                             <Card.Title>{m.title}</Card.Title>
                                 <Card.Text>
-                                    Posted by: {m.user} 
+                                    Posted by: {m.username} 
                                     <br></br>
                                     Privacy: {m.isProtected}
                                 </Card.Text>

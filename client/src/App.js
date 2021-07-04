@@ -142,6 +142,7 @@ function App() {
                   copyMeme={copyMeme}
                   routerHistory={routerHistory}
                   userId={userId}
+                  userName={userName}
                 />
               ) : (
                 <LoginForm doLogIn={doLogIn} />

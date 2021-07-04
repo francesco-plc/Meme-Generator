@@ -30,6 +30,7 @@ exports.getAllMemes = () => new Promise((resolve, reject) => {
                 isProtected: m.isProtected,
                 image: m.image,
                 user: m.user,
+                username: m.username,
             }));
 
         resolve(memes);
@@ -60,6 +61,7 @@ exports.getPublicMemes = () => new Promise((resolve, reject) => {
                 isProtected: m.isProtected,
                 image: m.image,
                 user: m.user,
+                username: m.username,
             }));
 
         resolve(memes);
@@ -89,6 +91,7 @@ exports.getUserMemes = (user) => new Promise((resolve, reject) => {
                 isProtected: m.isProtected,
                 image: m.image,
                 user: m.user,
+                username: m.username,
             }));
 
         resolve(memes);
@@ -97,7 +100,7 @@ exports.getUserMemes = (user) => new Promise((resolve, reject) => {
 
 //add a meme
 exports.addMeme = (userId, meme) => new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO memes (id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected, image, user) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    const sql = 'INSERT INTO memes (id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected, image, user, username) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
     db.run(sql, [
         this.lastID,
         meme.id_template,
@@ -111,7 +114,8 @@ exports.addMeme = (userId, meme) => new Promise((resolve, reject) => {
         meme.size,
         meme.isProtected,
         meme.image,
-        userId],
+        userId,
+        meme.username],
         (err) => {
             if (err) {
                 reject(err);
@@ -144,7 +148,8 @@ exports.getMeme = (memeId) => new Promise((resolve, reject) => {
             size: row.size,
             isProtected: row.isProtected,
             image: row.image,
-            user: row.user
+            user: row.user,
+            username: row.username
         };
         resolve(meme);
     });

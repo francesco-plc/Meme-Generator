@@ -71,6 +71,7 @@ async function addNewMeme(meme) {
             size: meme.size,
             isProtected: meme.isProtected,
             image: meme.image,
+            username: meme.username,
         }),
     });
     if (response.ok) {
@@ -94,6 +95,7 @@ async function copyMeme(meme) {
             size: meme.size,
             isProtected: 1,
             image: meme.image,
+            username: meme.username,
         }),
     });
     if (response.ok) {

@@ -112,6 +112,7 @@ app.post('/api/memes', isLoggedIn, async (req, res) => {
     size: req.body.size,
     isProtected: req.body.isProtected,
     image: req.body.image,
+    username: req.body.username,
   };
 
   try {
@@ -141,6 +142,7 @@ app.post('/api/copy', isLoggedIn, async (req, res) => {
     size: req.body.size,
     isProtected: 1,
     image: req.body.image,
+    username: req.body.username,
   };
 
   try {
