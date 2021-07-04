@@ -9,28 +9,28 @@ import Meme from '../models/Meme'
 
 function Generator(props) {
 
-    const {addMeme, routerHistory, userId} = props;
-    
-    const [count, setCount] = useState(0);                                              // templates array index
-    const [title, setTitle] = useState('');                                             // title set
-    const [capt, setCapt] = useState(Array(Templates[count].box_count).fill(''));       // captions array 
-    const [temp, setTemp] = useState(Templates[count].img);                             // template set
-    const [color, setColor] = useState(Colors[0]);                                      // color set
-    const [font, setFont] = useState("Arial");                                          // font set
-    const [size, setSize] = useState(50);                                               // font size set
-    const [isProtected, setIsProtected] = useState(false);                              // public/protected attribute
+    const {addMeme, routerHistory, userId, copyMeme} = props;
+
+   
+    const copy = useLocation().state;
+
+    const [count, setCount] = useState(copy ? copy.id_template : 0);                                 // templates array index
+    const [title, setTitle] = useState(copy ? copy.title : '');                                      // title set
+    const [capt, setCapt] = useState(copy ? [copy.text0, copy.text1, copy.text2, copy.text3] :
+                                        Array(Templates[count].box_count).fill('')                   // captions array
+                                    );                                                                                                  
+    const [temp, setTemp] = useState(copy ? Templates[copy.id_template].img : Templates[count].img );// template set
+    const [color, setColor] = useState(copy ? copy.color : Colors[0]);                               // color set
+    const [font, setFont] = useState(copy? copy.font : "Arial");                                     // font set
+    const [size, setSize] = useState(copy ? copy.size : 50);                                         // font size set
+    const [isProtected, setIsProtected] = useState(copy ? copy.isProtected : false);                 // public/protected attribute
     const canvasRef = useRef(null);
 
-    const[isTitleInvalid, setIsTitleInvalid] = useState(false);                         // variable to check if title is filled
-    const[isCaptInvalid, setIsCaptInvalid] = useState(false);                           // variable to check if a captions is filled
+    const[isTitleInvalid, setIsTitleInvalid] = useState(false);                                      // variable to check if title is filled
+    const[isCaptInvalid, setIsCaptInvalid] = useState(false);                                        // variable to check if a captions is filled
 
-    const location = useLocation();
-    console.log("id: " + userId);
-    console.log("meme user: " + location.state.user);
-
-    const isButtonDisabled = (location.state === undefined ? false : true);
-    const isSwitchDisabled = (location.state.user === userId ? false : true);
-
+    const isButtonDisabled = (copy ? true : false);
+    const isSwitchDisabled = ((copy && copy.user !== userId && copy.isProtected)? true : false);
 
     const changeIndex = (event) => {
         event.preventDefault();
@@ -80,26 +80,46 @@ function Generator(props) {
         event.preventDefault();
         const id =  Date.now();
         const image = canvasRef.current.toDataURL();
-        console.log(image);
         if((title !== '') && capt.some(text => text !== '')){
-            addMeme(
-                new Meme(
-                    id,
-                    count,
-                    title,
-                    capt[0],
-                    capt[1],
-                    capt[2],
-                    capt[3],
-                    color,
-                    font,
-                    size,
-                    isProtected,
-                    image,
-                    0
-                )
-            );
+            if(isSwitchDisabled){                
+                copyMeme(
+                    new Meme(
+                        id,
+                        count,
+                        title,
+                        capt[0],
+                        capt[1],
+                        capt[2],
+                        capt[3],
+                        color,
+                        font,
+                        size,
+                        1,
+                        image,
+                        0
+                    )
+                );
+            }else{
+                addMeme(
+                    new Meme(
+                        id,
+                        count,
+                        title,
+                        capt[0],
+                        capt[1],
+                        capt[2],
+                        capt[3],
+                        color,
+                        font,
+                        size,
+                        isProtected,
+                        image,
+                        0
+                    )
+                );
+            }            
             routerHistory.push('/');
+            console.log(image);
         } else {
             setIsTitleInvalid(true);
             setIsCaptInvalid(true);
@@ -111,14 +131,15 @@ function Generator(props) {
         setTemp(Templates[count].img);
         setCapt(Array(Templates[count].box_count).fill(''));
     }, [count]);
+  
+    console.log("userId: " + userId);
+    //console.log("meme user: " + copy.user);
+    console.log("title: " + title );
+    console.log("capt: " + capt);
+    console.log("font: " + font);
+    console.log("size: " + size);
+    console.log("isProtected: " + isProtected);
 
-    useEffect(() =>{
-        console.log(capt);
-    }, [capt]);
-
-
-
-    console.log(isProtected);
     return(
         <Container fluid className='below-nav width-100 generator'>
             <Row className="justify-content-center vheight-100">
@@ -138,9 +159,9 @@ function Generator(props) {
                         </Card.Body>
                         {/* previous/Next button */}
                         <Card.Footer>
-                            <Button variant="warning" size="lg" id="prev" /* className="float-left" */ onClick={changeIndex} disabled = {isButtonDisabled} >{iconLeft}</Button>
+                            <Button variant="warning" size="lg" id="prev" /* className="float-left" */ onClick={changeIndex} disabled={isButtonDisabled}>{iconLeft}</Button>
                             {" "}
-                            <Button variant="warning" size="lg" id="next" /* className="float-right" */ onClick={changeIndex} disabled = {isButtonDisabled} >{iconRight}</Button>
+                            <Button variant="warning" size="lg" id="next" /* className="float-right" */ onClick={changeIndex} disabled={isButtonDisabled}>{iconRight}</Button>
                         </Card.Footer>
                     </Card>
                 </Col>
@@ -153,7 +174,7 @@ function Generator(props) {
                                 Title
                             </Form.Label>
                             <Col xs={8}>
-                                <Form.Control type="text" placeholder="Insert a title" isInvalid={isTitleInvalid} onChange={handleTitle/* (e)=>setTitle(e.target.value) */}/>
+                                <Form.Control type="text" placeholder="Insert a title" isInvalid={isTitleInvalid} onChange={handleTitle} defaultValue={title}/>
                                 <Form.Control.Feedback type="invalid">Title must be provided.</Form.Control.Feedback>
                             </Col>
                         </Form.Group>
@@ -165,7 +186,7 @@ function Generator(props) {
                                         {`Caption ${idx+1}`}
                                     </Form.Label>
                                     <Col xs={8}>
-                                        <Form.Control rows={2} as="textarea" placeholder="Insert text"  
+                                        <Form.Control rows={2} as="textarea" placeholder="Insert text" defaultValue={capt[idx]}
                                             isInvalid={isCaptInvalid} onChange={(e)=>updateCapt(e, idx)}
                                         />
                                         <Form.Control.Feedback type="invalid">At least a caption must be provided.</Form.Control.Feedback>
@@ -192,8 +213,8 @@ function Generator(props) {
                                 Font:
                             </Form.Label>
                             <Col xs={8}>
-                                <Form.Control as="select" onChange={handleChangeFont}>
-                                    <option selected value="Arial" id="option1">Arial</option>
+                                <Form.Control as="select" onChange={handleChangeFont} defaultValue={font}>
+                                    <option value="Arial" id="option1">Arial</option>
                                     <option value="Lucida Handwriting" id="option2">Lucida Handwriting</option>
                                     <option value="Copperplate" id="option3">Copperplate</option>
                                     <option value="Courier New" id="option4">Courier New</option>

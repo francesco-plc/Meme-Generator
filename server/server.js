@@ -122,6 +122,35 @@ app.post('/api/memes', isLoggedIn, async (req, res) => {
   }
 });
 
+// Create a new meme from a protected one (copy)
+app.post('/api/copy', isLoggedIn, async (req, res) => {
+  const userId = req.user.id;
+  const text0 = req.body.text0 === undefined ? null : req.body.text0;
+  const text1 = req.body.text1 === undefined ? null : req.body.text1;
+  const text2 = req.body.text2 === undefined ? null : req.body.text2;
+  const text3 = req.body.text3 === undefined ? null : req.body.text3;
+  const meme = {
+    id_template: req.body.id_template,
+    title: req.body.title,
+    text0: text0,
+    text1: text1,
+    text2: text2,
+    text3: text3,
+    color: req.body.color,
+    font: req.body.font,
+    size: req.body.size,
+    isProtected: 1,
+    image: req.body.image,
+  };
+
+  try {
+    await dao.addMeme(userId, meme);
+    res.status(201).end();
+  } catch (err) {
+    res.status(503).json({ error: `Database error during the creation of meme: ${meme.title}.` });
+  }
+});
+
 // delete a meme
 app.delete('/api/memes/:id', isLoggedIn, async (req, res) => {
   const userId = req.user.id;

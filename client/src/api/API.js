@@ -77,6 +77,29 @@ async function addNewMeme(meme) {
         return null;
     } return { err: 'POST error' };
 };
+
+async function copyMeme(meme) {
+    const response = await fetch(`${url}/api/copy`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id_template: meme.id_template,
+            title: meme.title,
+            text0: meme.text0,
+            text1: meme.text1,
+            text2: meme.text2,
+            text3: meme.text3,
+            color: meme.color,
+            font: meme.font,
+            size: meme.size,
+            isProtected: 1,
+            image: meme.image,
+        }),
+    });
+    if (response.ok) {
+        return null;
+    } return { err: 'POST error' };
+};
   
 async function deleteMeme(id) {
     const response = await fetch(`${url}/api/memes/${id}`, {
@@ -140,6 +163,7 @@ function logOut() {
     loadUserMemes,
     loadMeme,
     addNewMeme,
+    copyMeme,
     deleteMeme,
     getUserInfo,
     logIn,

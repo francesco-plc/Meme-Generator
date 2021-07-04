@@ -73,6 +73,14 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const copyMeme = (meme) => {
+    setMemes((oldMemes) => [...oldMemes, meme]);
+
+    API.copyMeme(meme)
+      .then(setDirty(true))
+      .catch((err) => console.log(err));
+  };
+
   const deleteMeme = (id) => {
     setMemes((currMemes) => currMemes.filter((meme) => (meme.id !== id)));
 
@@ -131,6 +139,7 @@ function App() {
               loggedIn ? (
                 <Generator
                   addMeme={addMeme}
+                  copyMeme={copyMeme}
                   routerHistory={routerHistory}
                   userId={userId}
                 />
