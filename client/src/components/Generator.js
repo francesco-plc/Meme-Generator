@@ -3,7 +3,6 @@ import {Templates, Colors} from '../models/Templates';
 import {iconLeft, iconRight, iconCheck} from './Icons';
 import { useEffect, useState, useRef } from 'react';
 import { CirclePicker } from 'react-color';
-import FontPicker from "font-picker-react";
 import Canvas from './Canvas';
 import Meme from '../models/Meme'
 
@@ -17,7 +16,7 @@ function Generator(props) {
     const [capt, setCapt] = useState(Array(Templates[count].box_count).fill(''));       // captions array 
     const [temp, setTemp] = useState(Templates[count].img);                             // template set
     const [color, setColor] = useState(Colors[0]);                                      // color set
-    const [font, setFont] = useState("Open Sans");                                      // font set
+    const [font, setFont] = useState("Arial");                                          // font set
     const [size, setSize] = useState(50);                                               // font size set
     const [isProtected, setIsProtected] = useState(false);                              // public/protected attribute
     const canvasRef = useRef(null);
@@ -64,6 +63,10 @@ function Generator(props) {
     const handleChangeComplete = (color, event) => {
         setColor(color.hex);
     };
+
+    const handleChangeFont = (e) => {
+        setFont(e.target.value);
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -181,19 +184,13 @@ function Generator(props) {
                                 Font:
                             </Form.Label>
                             <Col xs={8}>
-                                {/* <FontPicker
-                                    id="fontPicker"
-                                    apiKey="AIzaSyAFwi_TzGkfslfTV8Fo35Evk3PQ3UAOG18"
-                                    activeFontFamily={font}
-                                    onChange={(nextFont) => (setFont(nextFont.family))}
-                                /> */}
-                                <Form.Control as="select">
-                                    <option selected id="o1">Arial</option>
-                                    <option value="1" id="o2">Lucida Handwriting</option>
-                                    <option value="2" id="o3">Copperplate</option>
-                                    <option value="3" id="o4">Courier New</option>
-                                    <option value="4" id="o5">Lucida Console</option>
-                                    <option value="5" id="o6">Times New Roman</option>
+                                <Form.Control as="select" onChange={handleChangeFont}>
+                                    <option selected value="Arial" id="option1">Arial</option>
+                                    <option value="Lucida Handwriting" id="option2">Lucida Handwriting</option>
+                                    <option value="Copperplate" id="option3">Copperplate</option>
+                                    <option value="Courier New" id="option4">Courier New</option>
+                                    <option value="Lucida Console" id="option5">Lucida Console</option>
+                                    <option value="Times New Roman" id="option6">Times New Roman</option>
                                 </Form.Control>
                             </Col>
                         </Form.Group>
