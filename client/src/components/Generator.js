@@ -10,7 +10,6 @@ import Meme from '../models/Meme'
 function Generator(props) {
 
     const {addMeme, routerHistory, userId, copyMeme} = props;
-
    
     const copy = useLocation().state;
 
@@ -194,6 +193,7 @@ function Generator(props) {
                                 </Form.Group>
                             ))
                         }
+                        {/* Color Picker */}
                         <Form.Group as={Row} controlId="colorPicker" >
                             <Form.Label column xs={4}>
                                 Color:
@@ -207,8 +207,8 @@ function Generator(props) {
                                     onChangeComplete={handleChangeComplete} />
                             </Col>
                         </Form.Group>
-
-                        <Form.Group as={Row} controlId="colorPicker" >
+                        {/* Font selector*/}
+                        <Form.Group as={Row} controlId="fontSelector" >
                             <Form.Label column xs={4}>
                                 Font:
                             </Form.Label>
@@ -223,7 +223,7 @@ function Generator(props) {
                                 </Form.Control>
                             </Col>
                         </Form.Group>
-                        
+                        {/* Font size range*/}
                         <Form.Group as={Row} controlId="textRange">
                             <Form.Label column xs={4}>Size:</Form.Label>
                             <Col md={4} sm={4} xs={6} className="mt-2">
@@ -235,7 +235,7 @@ function Generator(props) {
                             </Col>
                         </Form.Group>
 
-                        {/* protected switch */}
+                        {/* Public/Protected switch */}
                         <Form.Group as={Row}>
                             <Col xs={1}>
                                 <Form.Check
@@ -245,13 +245,11 @@ function Generator(props) {
                                     onClick={() => setIsProtected(!isProtected)}
                                     label={isProtected ? 'Protected' : 'Public'}
                                     disabled={isSwitchDisabled}
-                                //checked={isPrivate}
-                                //onChange={handleChange}
                                 />
                             </Col>{/* 
                             <Col xs={10} className="text-left">Set as protected</Col> */}
                         </Form.Group>
-
+                        {/*Generate Meme Button*/}
                         <Form.Group as={Row}>
                             <Col className="text-center">
                                 <Button type="submit" variant="danger" id="doneButton" onClick={handleSubmit}> Done {iconCheck} </Button>

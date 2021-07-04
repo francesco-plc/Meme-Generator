@@ -6,7 +6,7 @@ import userPlaceholder from '../images/pepe.jpg';
 
 /* Account Info Placeholder */
 function AccountInfo(props) {
-  const { userInfo, doLogOut } = props;
+  const { userName, doLogOut } = props;
 
   return (
     <Row className="mt-5 justify-content-center">
@@ -16,7 +16,7 @@ function AccountInfo(props) {
           <Card.Text className="text-left mb-4">
             Hello
             {' '}
-            <b>{userInfo}</b>
+            <b>{userName}</b>
             ,  you are already logged in.
             {' '}
             <br />
