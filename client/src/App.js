@@ -16,7 +16,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userId, setUserId] = useState('');
   const routerHistory = useHistory();
 
   // Rehydrate tasks at mount time
@@ -26,7 +27,7 @@ function App() {
 
   useEffect(() => {
     API.getUserInfo().then((user) => {
-      setUserInfo(user.name);
+      setUserName(user.name);
       setLoggedIn(true);
       setLoading(true);
       setDirty(true);
@@ -81,8 +82,9 @@ function App() {
   };
 
   const doLogIn = (username, password) => {
-    API.logIn(username, password).then((name) => {
-      setUserInfo(name);
+    API.logIn(username, password).then(([name, id]) => {
+      setUserName(name);
+      setUserId(id);
       setLoggedIn(true);
       //setShowAlert(true);
       setLoading(true);
@@ -98,7 +100,8 @@ function App() {
     API.logOut().then(() => {
       /* setShowAlert(false); */
       setLoggedIn(false);
-      setUserInfo('');
+      setUserName('');
+      setUserId('');
       routerHistory.push('/');    
       window.location.reload();
     }).catch((err) => console.log(err));
@@ -108,7 +111,7 @@ function App() {
     <>
       <NavBar
         loggedIn={loggedIn}
-        userInfo={userInfo}
+        userName={userName}
       />
       <div>
       <Switch>
@@ -118,6 +121,7 @@ function App() {
            <DashBoard
               memes={memes}
               setMemes={setMemes}
+              routerHistory={routerHistory}
             />)
           }
           </Route>
@@ -128,6 +132,7 @@ function App() {
                 <Generator
                   addMeme={addMeme}
                   routerHistory={routerHistory}
+                  userId={userId}
                 />
               ) : (
                 <LoginForm doLogIn={doLogIn} />
@@ -140,7 +145,7 @@ function App() {
             {
               loggedIn ? (
                 <AccountInfo
-                  userInfo={userInfo}
+                  userName={userName}
                   doLogOut={doLogOut}
                 />
               ) : (

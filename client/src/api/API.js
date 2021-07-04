@@ -111,7 +111,7 @@ function logIn(username, password) {
         }).then((response) => {
             if (response.ok) {
                 response.json().then((user) => {
-                    resolve(user.name);
+                    resolve([user.name, user.id]);
                 }).catch((err) => reject(err));
             } else {
                 reject();

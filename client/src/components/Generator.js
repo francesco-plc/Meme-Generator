@@ -2,14 +2,14 @@ import {Container, Row, Col, Form, Button, Card} from 'react-bootstrap';
 import {Templates, Colors} from '../models/Templates';
 import {iconLeft, iconRight, iconCheck} from './Icons';
 import { useEffect, useState, useRef } from 'react';
+import { useLocation } from "react-router-dom";
 import { CirclePicker } from 'react-color';
 import Canvas from './Canvas';
 import Meme from '../models/Meme'
 
 function Generator(props) {
 
-    //const {copy} = props;
-    const {addMeme, routerHistory} = props;
+    const {addMeme, routerHistory, userId} = props;
     
     const [count, setCount] = useState(0);                                              // templates array index
     const [title, setTitle] = useState('');                                             // title set
@@ -22,7 +22,15 @@ function Generator(props) {
     const canvasRef = useRef(null);
 
     const[isTitleInvalid, setIsTitleInvalid] = useState(false);                         // variable to check if title is filled
-    const[isCaptInvalid, setIsCaptInvalid] = useState(false);
+    const[isCaptInvalid, setIsCaptInvalid] = useState(false);                           // variable to check if a captions is filled
+
+    const location = useLocation();
+    console.log("id: " + userId);
+    console.log("meme user: " + location.state.user);
+
+    const isButtonDisabled = (location.state === undefined ? false : true);
+    const isSwitchDisabled = (location.state.user === userId ? false : true);
+
 
     const changeIndex = (event) => {
         event.preventDefault();
@@ -130,9 +138,9 @@ function Generator(props) {
                         </Card.Body>
                         {/* previous/Next button */}
                         <Card.Footer>
-                            <Button variant="warning" size="lg" id="prev" /* className="float-left" */ onClick={changeIndex}>{iconLeft}</Button>
+                            <Button variant="warning" size="lg" id="prev" /* className="float-left" */ onClick={changeIndex} disabled = {isButtonDisabled} >{iconLeft}</Button>
                             {" "}
-                            <Button variant="warning" size="lg" id="next" /* className="float-right" */ onClick={changeIndex}>{iconRight}</Button>
+                            <Button variant="warning" size="lg" id="next" /* className="float-right" */ onClick={changeIndex} disabled = {isButtonDisabled} >{iconRight}</Button>
                         </Card.Footer>
                     </Card>
                 </Col>
@@ -215,6 +223,7 @@ function Generator(props) {
                                     name="formSwitch" 
                                     onClick={() => setIsProtected(!isProtected)}
                                     label={isProtected ? 'Protected' : 'Public'}
+                                    disabled={isSwitchDisabled}
                                 //checked={isPrivate}
                                 //onChange={handleChange}
                                 />

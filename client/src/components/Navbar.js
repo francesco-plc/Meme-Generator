@@ -5,7 +5,7 @@ import { iconLogo, iconUser } from './Icons';
 
 function NavBar(props){
 
-    const { loggedIn, userInfo } = props;
+    const { loggedIn, userName } = props;
 
     return(
         <Navbar bg="dark" variant="dark" fixed="top" className="nav">
@@ -27,7 +27,7 @@ function NavBar(props){
                 </Nav>
                 <Navbar.Text className="mr-2">
                     {loggedIn ? (
-                        <small>Welcome! <Link to="/account"><a>{userInfo}</a></Link></small>
+                        <small>Welcome! <Link to="/account"><a>{userName}</a></Link></small>
                         ) : (<Link to="/login">
                                 <a>Login</a>   
                         </Link>)
