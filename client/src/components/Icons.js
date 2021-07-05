@@ -1,5 +1,5 @@
 const iconDelete = (
-  <svg className="bi bi-trash" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="#dc3545" xmlns="http://www.w3.org/2000/svg">
+  <svg className="bi bi-trash" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"
     />

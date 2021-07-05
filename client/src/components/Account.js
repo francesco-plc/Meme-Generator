@@ -1,6 +1,4 @@
-import {
-  Row, Button, Form, Card,
-} from 'react-bootstrap';
+import { Row, Button, Form, Card, Alert } from 'react-bootstrap';
 import { useState } from 'react';
 import userPlaceholder from '../images/pepe.jpg';
 
@@ -9,25 +7,20 @@ function AccountInfo(props) {
   const { userName, doLogOut } = props;
 
   return (
-    <Row className="mt-5 justify-content-center">
-      <Card className="text-center" style={{ width: '24rem' }}>
-        <Card.Body>
-          <Card.Img className="mb-4" variant="info" src={userPlaceholder} alt="userImage" style={{ width: '18rem' }} />
-          <Card.Text className="text-left mb-4">
-            Hello
-            {' '}
-            <b>{userName}</b>
-            ,  you are already logged in.
-            {' '}
-            <br />
-            You can add, edit or remove tasks from your personal and private list.
-            <br />
-            Have fun!
-          </Card.Text>
-          <Button className="btn-lg btn-block" variant="info" onClick={doLogOut}>Log Out</Button>
-        </Card.Body>
-      </Card>
-    </Row>
+      <Alert variant="info" className="mt-5 text-center">
+        <Alert.Heading>
+          Hello
+          {' '}
+          <b>{userName}</b>!          
+        </Alert.Heading>
+        <p>
+          From here you can manage all your created memes (or simply log out if you want to).
+        </p>
+        <hr />
+        <p className="mb-0">
+        <Button className="btn-sm" variant="danger" onClick={doLogOut}>Log Out</Button>
+        </p>
+      </Alert>
   );
 }
 

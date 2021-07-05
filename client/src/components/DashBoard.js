@@ -73,15 +73,17 @@ function DashBoard (props){
                                     <br></br>
                                     Privacy: {m.isProtected}
                                 </Card.Text>
-                                <Link
-                                    to={{
-                                        pathname: '/create',
-                                        state: m
-                                    }}
-                                >
-                                    <Button variant="danger" className="float-right"> {iconSteal} Steal?  </Button>
-                                </Link>
                         </Card.Body>
+                        <Card.Footer className="text-center">
+                            <Link
+                                to={{
+                                    pathname: '/create',
+                                    state: m
+                                }}
+                            >
+                                <Button variant="danger" className="btn-sm"> {iconSteal} Steal?  </Button>
+                            </Link>
+                        </Card.Footer>
                     </Card>
                 ))}
             </CardColumns>

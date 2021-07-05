@@ -22,7 +22,7 @@ function NavBar(props){
             <Navbar.Collapse className="justify-content-end">
                 <Nav className="mx-auto">
                     <Link to="/create" >
-                        <Navbar.Text>Generator</Navbar.Text>
+                        <Navbar.Text >Generator</Navbar.Text>
                     </Link>
                 </Nav>
                 <Navbar.Text className="mr-2">

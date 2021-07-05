@@ -7,12 +7,14 @@ import { Switch, Route, useHistory, BrowserRouter as Router } from 'react-router
 import { AccountInfo, LoginForm } from './components/Account';
 import NavBar from './components/Navbar';
 import DashBoard from './components/DashBoard';
+import UserDashBoard from './components/UserDashBoard'
 import Generator from './components/Generator';
 import API from './api/API';
 
 function App() {
 
   const [memes, setMemes] = useState([]);
+  const [userMemes, setUserMemes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -46,6 +48,13 @@ function App() {
         }).catch((err) => {
           setLoading(false);
           setDirty(false);
+          console.log(err);
+        });
+      API.loadUserMemes()
+        .then((fecthedMemes) => {
+          console.log('Load User Memes');
+          setUserMemes(fecthedMemes);
+        }).catch((err) => {
           console.log(err);
         });
     } else if (dirty && !loggedIn) {
@@ -84,7 +93,7 @@ function App() {
   const deleteMeme = (id) => {
     setMemes((currMemes) => currMemes.filter((meme) => (meme.id !== id)));
 
-    API.deleteTask(id)
+    API.deleteMeme(id)
       .then(setDirty(true))
       .catch((err) => console.log(err));
   };
@@ -94,19 +103,16 @@ function App() {
       setUserName(name);
       setUserId(id);
       setLoggedIn(true);
-      //setShowAlert(true);
       setLoading(true);
       setDirty(true);
       routerHistory.push('/');
     }).catch((err) => {
-      //setShowAlert(true);
       console.log(err);
     });
   };
 
   const doLogOut = () => {
     API.logOut().then(() => {
-      /* setShowAlert(false); */
       setLoggedIn(false);
       setUserName('');
       setUserId('');
@@ -150,14 +156,19 @@ function App() {
             }
           </Route>
 
-          <Route exact path="/account">
-            
+          <Route exact path="/account">           
             {
               loggedIn ? (
-                <AccountInfo
+                <div>
+                  <AccountInfo
                   userName={userName}
                   doLogOut={doLogOut}
                 />
+                <UserDashBoard
+                  userMemes={userMemes}
+                  deleteMeme={deleteMeme}
+                />
+                </div>                
               ) : (
                 <LoginForm doLogIn={doLogIn} />
               )
