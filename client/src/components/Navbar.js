@@ -1,7 +1,6 @@
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link, NavLink} from 'react-router-dom';
-import { useState } from 'react';
-import { iconLogo, iconUser } from './Icons';
+import { /* iconLogo, */ iconUser } from './Icons';
 
 function NavBar(props){
 
@@ -14,8 +13,7 @@ function NavBar(props){
                 <Navbar.Brand>
                     {/* {iconLogo}
                     {' '} */}
-                    Memes Generator
-                    {/* <small>Your Cheap<br></br>Memes Generator</small> */}
+                    <small>Your Cheap Memes Generator</small>
                 </Navbar.Brand>
             </Link>
             <Navbar.Toggle />

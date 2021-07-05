@@ -1,42 +1,67 @@
-import {Row, Col, Card, Container, Button, CardColumns} from 'react-bootstrap';
+import {Row, Col, Card, Container, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { iconSteal } from './Icons';
+import { iconSteal, iconProtected, iconPublic } from './Icons';
 
 function DashBoard (props){
 
     const {memes, setMemes, routerHistory} = props;
 
-/*     const stealMeme = (e) => {
-        e.preventDefault();
-        routerHistory.push({
-            pathname: '/create',
-            state: e.target.m,
-          });
-          console.log(e);
-    } */
-
     return(
-/*         <Container fluid className='dashboard'>
+        <Container fluid className='dashboard'>
             <Row xs={1} md={2} className="g-4 vheight-100 width-100 mx-auto">
                 {memes.map((m, idx) => (
-                    <Col md={{ span: 6, offset: 3 }}>
-                        <Card>
-                            <Card.Img variant="top" src={m.image} />
+                    <Col md={{ span: 6, offset: 3 }} key={idx}>
+                        <Card bg="light" className="my-2">
+                            <Card.Header>
+                                <Row>
+                                    <Col xs={8} className="text-left">
+                                        <Card.Title>{m.title}</Card.Title>
+                                    </Col>
+                                    <Col xs={4} className="text-right">
+                                        <Link
+                                            to={{
+                                                pathname: '/create',
+                                                state: m
+                                            }}
+                                        >
+                                            <Button variant="warning" className="btn-sm"> {iconSteal} Steal?  </Button>
+                                        </Link>
+                                    </Col>
+                                </Row>
+                            </Card.Header>
+                            <Row>
+                                <Col xs={10} className="mx-auto mt-3 mb-0">
+                                    <Card.Img variant="bottom" src={m.image}/>
+                                </Col>
+                            </Row>
                             <Card.Body>
-                                <Card.Title>{m.title}</Card.Title>
-                                <Card.Text>
-                                    Posted by: {m.user} 
-                                    <br></br>
-                                    Privacy: {m.isProtected}
-                                </Card.Text>
-                                <Button variant="danger" className="float-right"> {iconSteal} Steal?  </Button>
+                                <Row>
+                                    <Col xs={6} className="text-left">
+                                        <Card.Text>
+                                            Created by: {m.username}
+                                        </Card.Text>
+                                    </Col>
+                                    <Col>
+                                        {m.isProtected ?
+                                            (
+                                                <Card.Text xs={6} className="text-right">
+                                                    Privacy: {iconProtected}
+                                                </Card.Text>
+                                            ) : (
+                                                <Card.Text xs={6} className="text-right">
+                                                    Privacy: {iconPublic}
+                                                </Card.Text>
+                                            )
+                                        }
+                                    </Col>
+                                </Row>
                             </Card.Body>
                         </Card>
                         <br />
                     </Col>
                 ))}
             </Row>
-        </Container> */
+        </Container>
         
 
         /* <Container fluid className='dashboard'>
@@ -61,7 +86,7 @@ function DashBoard (props){
             </Row>
         </Container> */
 
-        <Container fluid className='dashboard'>
+        /*<Container fluid className='dashboard'>
             <CardColumns>
                 {memes.map((m, idx) => (
                     <Card key={idx}>
@@ -87,7 +112,7 @@ function DashBoard (props){
                     </Card>
                 ))}
             </CardColumns>
-        </Container>
+        </Container>*/
 
         /* <Container fluid className='dashboard'>
             <Row xs={1} md={2} className="g-4 vheight-100 width-100 mx-auto">

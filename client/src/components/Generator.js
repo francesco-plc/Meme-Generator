@@ -1,6 +1,6 @@
 import {Container, Row, Col, Form, Button, Card} from 'react-bootstrap';
 import {Templates, Colors} from '../models/Templates';
-import {iconLeft, iconRight, iconCheck} from './Icons';
+import { iconLeft, iconRight, iconCheck } from './Icons';
 import { useEffect, useState, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import { CirclePicker } from 'react-color';
@@ -121,6 +121,10 @@ function Generator(props) {
             }            
             routerHistory.push('/');
             console.log(image);
+        }else if(title === ''  && capt.some(text => text !== '')){
+            setIsTitleInvalid(true);
+        }else if(title !== ''  && !capt.some(text => text !== '')){
+            setIsCaptInvalid(true);
         } else {
             setIsTitleInvalid(true);
             setIsCaptInvalid(true);

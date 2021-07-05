@@ -159,7 +159,7 @@ function App() {
           <Route exact path="/account">           
             {
               loggedIn ? (
-                <div>
+                <div className="dashboard">
                   <AccountInfo
                   userName={userName}
                   doLogOut={doLogOut}

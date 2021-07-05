@@ -7,11 +7,9 @@ function AccountInfo(props) {
   const { userName, doLogOut } = props;
 
   return (
-      <Alert variant="info" className="mt-5 text-center">
+      <Alert variant="info" className="alert text-center">
         <Alert.Heading>
-          Hello
-          {' '}
-          <b>{userName}</b>!          
+          Hello {' '} <b>{userName}</b>! {' '} This is your personal space.
         </Alert.Heading>
         <p>
           From here you can manage all your created memes (or simply log out if you want to).

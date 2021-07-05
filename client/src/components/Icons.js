@@ -1,3 +1,5 @@
+import { Image } from 'react-bootstrap'
+
 const iconDelete = (
   <svg className="bi bi-trash" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
     <path
@@ -24,16 +26,6 @@ const iconEdit = (
   </svg>
 );
 
-const iconLogo = (
-  <svg className="bi bi-check2-all" width="2em" height="2em" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"
-    />
-    <path
-      d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"
-    />
-  </svg>
-);
 
 const iconPrivate = (
   <svg className="bi bi-person-square" width="1.5em" height="1.5em" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -82,8 +74,23 @@ const iconCheck = (
     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
     <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
   </svg>
-)
+);
+
+const iconProtected = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-lock-fill" viewBox="0 0 16 16">
+    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+  </svg>
+);
+
+const iconPublic = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-people-fill" viewBox="0 0 16 16">
+    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+    <path fillRule ="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
+    <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+  </svg>
+);
+
 
 export {
-  iconDelete, iconEdit, iconLogo, iconPrivate, iconUser, iconSteal, iconLeft, iconRight, iconCheck
+  iconDelete, iconEdit, /* iconLogo,*/ iconPrivate, iconUser, iconSteal, iconLeft, iconRight, iconCheck, iconProtected, iconPublic
 };
