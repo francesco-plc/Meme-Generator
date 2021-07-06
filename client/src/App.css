@@ -132,3 +132,15 @@
 .meme{
   height: 30rem;
 }
+
+@media screen and (max-width: 992px){
+  .meme{
+    height: 30rem;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .meme{
+    height: 20rem;
+  }
+}

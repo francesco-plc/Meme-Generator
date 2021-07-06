@@ -15,6 +15,7 @@ function Generator(props) {
 
     const [count, setCount] = useState(copy ? copy.id_template : 0);                                 // templates array index
     const [title, setTitle] = useState(copy ? copy.title : '');                                      // title set
+    const [boxCount, setBoxCount] = useState(Templates[count].box_count);                            // number of captions 
     const [capt, setCapt] = useState(copy ? [copy.text0, copy.text1, copy.text2, copy.text3] :
                                         Array(Templates[count].box_count).fill('')                   // captions array
                                     );                                                                                                  
@@ -132,9 +133,28 @@ function Generator(props) {
     }
 
     useEffect(() => {
-        console.log(Templates[count]);
         setTemp(Templates[count].img);
-        setCapt(Array(Templates[count].box_count).fill(''));
+        setBoxCount(Templates[count].box_count);
+        if(!copy /*&&  !capt.some(text => text !== '') */){
+            setCapt(Array(Templates[count].box_count).fill(''));
+        }else{
+            switch(Templates[count].box_count){
+                case 1:
+                    setCapt([copy.text0]);
+                    break;
+                case 2:
+                    setCapt([copy.text0, copy.text1]);
+                    break;
+                case 3:
+                    setCapt([copy.text0, copy.text1, copy.text2]);
+                    break;
+                case 4:
+                    setCapt([copy.text0, copy.text1, copy.text2, copy.text3]);
+                    break;
+                default:
+                    break;
+            }
+        }
     }, [count]);
   
     console.log("userId: " + userId);
@@ -185,7 +205,7 @@ function Generator(props) {
                         </Form.Group>
                         {/* Caption boxes */}
                         {
-                            capt.map((_c, idx) => (
+                            Array(boxCount).fill('').map((_c, idx) => (
                                 <Form.Group key={idx} as={Row} controlId={`caption-${idx}`}>
                                     <Form.Label column xs={4}>
                                         {`Caption ${idx+1}`}
