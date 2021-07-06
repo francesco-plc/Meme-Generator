@@ -11,7 +11,7 @@ function DashBoard (props){
             <Row xs={1} md={2} className="g-4 vheight-100 width-100 mx-auto">
                 {memes.map((m, idx) => (
                     <Col md={{ span: 6, offset: 3 }} key={idx}>
-                        <Card bg="light" className="my-2">
+                        <Card /* bg="light" */ className="my-2 dashcard">
                             <Card.Header>
                                 <Row>
                                     <Col xs={8} className="text-left">
@@ -24,7 +24,7 @@ function DashBoard (props){
                                                 state: m
                                             }}
                                         >
-                                            <Button variant="warning" className="btn-sm"> {iconSteal} Steal?  </Button>
+                                            <Button variant="warning" className="btn-sm button"> {iconSteal} Steal?  </Button>
                                         </Link>
                                     </Col>
                                 </Row>

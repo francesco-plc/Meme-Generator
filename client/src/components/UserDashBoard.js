@@ -11,14 +11,14 @@ function UserDashBoard (props){
             <Row xs={1} md={2} className="g-4 vheight-100 width-100 mx-auto">
                 {userMemes.map((m, idx) => (
                     <Col md={{ span: 6, offset: 3 }} key={idx}>
-                        <Card bg="light" className="my-2">
+                        <Card /* bg="light" */ className="my-2 dashcard">
                             <Card.Header>
                                 <Row>
                                     <Col xs={10} className="text-left">
                                         <Card.Title>{m.title}</Card.Title>
                                     </Col>
                                     <Col xs={2} className="text-right">
-                                        <Button variant="danger" className="btn-sm" onClick={() => deleteMeme(m.id)}> {iconDelete} </Button>
+                                        <Button variant="danger" className="btn-sm button" onClick={() => deleteMeme(m.id)}> {iconDelete} </Button>
                                     </Col>
                                 </Row>
                             </Card.Header>

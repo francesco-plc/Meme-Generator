@@ -146,7 +146,7 @@ function Generator(props) {
     console.log("isProtected: " + isProtected);
 
     return(
-        <Container fluid className='below-nav width-100 generator'>
+        <Container fluid className='below-nav width-100 generator pink'>
             <Row className="justify-content-center vheight-100">
                 {/* image space*/}
                 <Col xs={12} sm={12} md={5} className="text-center">
@@ -164,9 +164,9 @@ function Generator(props) {
                         </Card.Body>
                         {/* previous/Next button */}
                         <Card.Footer>
-                            <Button variant="warning" size="lg" id="prev" /* className="float-left" */ onClick={changeIndex} disabled={isButtonDisabled}>{iconLeft}</Button>
+                            <Button variant="warning" size="lg"  className="button" id="prev" /* className="float-left" */ onClick={changeIndex} disabled={isButtonDisabled}>{iconLeft}</Button>
                             {" "}
-                            <Button variant="warning" size="lg" id="next" /* className="float-right" */ onClick={changeIndex} disabled={isButtonDisabled}>{iconRight}</Button>
+                            <Button variant="warning" size="lg" className="button" id="next" /* className="float-right" */ onClick={changeIndex} disabled={isButtonDisabled}>{iconRight}</Button>
                         </Card.Footer>
                     </Card>
                 </Col>
@@ -199,20 +199,6 @@ function Generator(props) {
                                 </Form.Group>
                             ))
                         }
-                        {/* Color Picker */}
-                        <Form.Group as={Row} controlId="colorPicker" >
-                            <Form.Label column xs={4}>
-                                Color:
-                            </Form.Label>
-                            <Col xs={8} className="mt-1">
-                                <CirclePicker 
-                                    width="294px" 
-                                    circleSize={28}
-                                    colors={Colors} 
-                                    color={color} 
-                                    onChangeComplete={handleChangeComplete} />
-                            </Col>
-                        </Form.Group>
                         {/* Font selector*/}
                         <Form.Group as={Row} controlId="fontSelector" >
                             <Form.Label column xs={4}>
@@ -240,7 +226,20 @@ function Generator(props) {
                                />
                             </Col>
                         </Form.Group>
-
+                        {/* Color Picker */}
+                        <Form.Group as={Row} controlId="colorPicker" >
+                            <Form.Label column xs={4}>
+                                Color:
+                            </Form.Label>
+                            <Col xs={8} className="mt-1">
+                                <CirclePicker
+                                    width="294px"
+                                    circleSize={28}
+                                    colors={Colors}
+                                    color={color}
+                                    onChangeComplete={handleChangeComplete} />
+                            </Col>
+                        </Form.Group>
                         {/* Public/Protected switch */}
                         <Form.Group as={Row}>
                             <Col xs={1}>
@@ -258,7 +257,7 @@ function Generator(props) {
                         {/*Generate Meme Button*/}
                         <Form.Group as={Row}>
                             <Col className="text-center">
-                                <Button type="submit" variant="danger" id="doneButton" onClick={handleSubmit}> Done {iconCheck} </Button>
+                                <Button type="submit" className="button" variant="danger" id="doneButton" onClick={handleSubmit}> Done {iconCheck} </Button>
                             </Col>
                         </Form.Group>
                         

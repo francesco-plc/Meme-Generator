@@ -13,6 +13,7 @@
 .dashboard {
   padding-top: 5rem;
   background-color: #17a2b8;
+  overflow-x: hidden;
 }
 
 .toolbar {
@@ -44,11 +45,12 @@
   max-width: 100%;
   height: 38rem;
   margin-bottom: 1rem;
-  border-radius: 4rem;
+  border-radius: 2rem!important;
 }
 
 .generator{
   overflow: hidden;
+  min-height: 100vh;
 }
 
 .canvas {
@@ -91,4 +93,29 @@
 }
 #option6{
   font-family: "Times New Romam", Times, serif;
+}
+
+.pink{
+  background-color: #ffeff1;
+  /* background-color: #d4d1f1; */
+}
+
+.dashcard{
+  background-color: #ffeff1!important;
+  border-radius: 2rem!important;
+}
+.logCard{
+  background-color: #17a2b8!important;
+  width: 25rem;
+  border-radius: 2rem!important;
+}
+
+.logImg{
+  width: 18rem;
+  height: 15rem;
+  border-radius: 1rem;
+}
+
+.button{
+  border-radius: 2rem!important;
 }

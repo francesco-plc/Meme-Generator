@@ -1,6 +1,7 @@
-import { Row, Button, Form, Card, Alert } from 'react-bootstrap';
+import { Row, Button, Form, Card, Alert, Container } from 'react-bootstrap';
 import { useState } from 'react';
 import userPlaceholder from '../images/pepe.jpg';
+import userPlaceholder2 from '../images/joinus.jpg'
 
 /* Account Info Placeholder */
 function AccountInfo(props) {
@@ -16,13 +17,14 @@ function AccountInfo(props) {
         </p>
         <hr />
         <p className="mb-0">
-        <Button className="btn-sm" variant="danger" onClick={doLogOut}>Log Out</Button>
+        <Button className="btn-sm" variant="danger" className="button" onClick={doLogOut}>Log Out</Button>
         </p>
       </Alert>
   );
 }
 
 function LoginForm(props) {
+
   const { doLogIn } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -50,12 +52,13 @@ function LoginForm(props) {
   };
 
   return (
-    <Row className="mt-5 justify-content-center">
-      <Card className="text-center" style={{ width: '24rem' }}>
+    <Container>
+      <Row className="mt-5 justify-content-center">
+      <Card className="text-center logCard mt-5">
         <Card.Body>
-          <Card.Img variant="info" src={userPlaceholder} alt="imagePlaceholder" style={{ width: '18rem' }} />
+          <Card.Img variant="info" src={userPlaceholder2} alt="imagePlaceholder2" className="logImg my-4" />
           <Form>
-            <Form.Group className="text-left mb-4" controlId="username">
+            <Form.Group className="text-left my-4" controlId="username">
               <Form.Label>Username:</Form.Label>
               <Form.Control isInvalid={invalidUsername} placeholder="Enter Username" type="email" value={username} onChange={handleChange} />
               <Form.Control.Feedback type="invalid">Please insert username.</Form.Control.Feedback>
@@ -65,11 +68,13 @@ function LoginForm(props) {
               <Form.Control isInvalid={invalidPassword} placeholder="Enter Password" type="password" value={password} onChange={handleChange} />
               <Form.Control.Feedback type="invalid">Please insert password.</Form.Control.Feedback>
             </Form.Group>
-            <Button className="btn-lg btn-block" variant="info" onClick={handleSubmit}>Log In</Button>
+            <Button className="btn-lg btn-block button" variant="warning" onClick={handleSubmit}>Log In</Button>
           </Form>
         </Card.Body>
       </Card>
     </Row>
+    </Container>
+    
   );
 }
 
