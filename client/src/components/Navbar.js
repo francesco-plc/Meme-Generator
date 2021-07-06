@@ -1,4 +1,4 @@
-import { Navbar, Nav, Button, Col } from 'react-bootstrap';
+import { Navbar, Button, Col } from 'react-bootstrap';
 import { Link, NavLink} from 'react-router-dom';
 import { /* iconLogo, */ iconUser } from './Icons';
 
@@ -26,9 +26,9 @@ function NavBar(props){
             <Col xs={5} className="text-right">
                 <Navbar.Text className="mr-2">
                     {loggedIn ? (
-                        <small>Welcome! <Link to="/account"><a>{userName}</a></Link></small>
+                        <small>Welcome! <Link to="/account">{userName}</Link></small>
                     ) : (<Link to="/login">
-                        <a>Login</a>
+                        Login
                     </Link>)
                     }
                 </Navbar.Text>

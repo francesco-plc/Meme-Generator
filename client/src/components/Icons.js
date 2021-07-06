@@ -1,4 +1,3 @@
-import { Image } from 'react-bootstrap'
 
 const iconDelete = (
   <svg className="bi bi-trash" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">

@@ -4,7 +4,7 @@ import { iconSteal, iconProtected, iconPublic } from './Icons';
 
 function DashBoard (props){
 
-    const {memes, setMemes, routerHistory} = props;
+    const {memes, /* setMemes, routerHistory */} = props;
 
     return(
         <Container fluid className='dashboard'>
@@ -31,7 +31,7 @@ function DashBoard (props){
                             </Card.Header>
                             <Row>
                                 <Col xs={10} className="mx-auto mt-3 mb-0">
-                                    <Card.Img variant="bottom" src={m.image}/>
+                                    <Card.Img variant="bottom" src={m.image} className="meme"/>
                                 </Col>
                             </Row>
                             <Card.Body>

@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
 /* import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'; */
 /* import { Switch, Route, useHistory } from 'react-router-dom'; */
-import { Switch, Route, useHistory, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { AccountInfo, LoginForm } from './components/Account';
 import NavBar from './components/Navbar';
 import DashBoard from './components/DashBoard';
@@ -71,7 +71,7 @@ function App() {
         });
     }
     console.log(memes);
-  }, [dirty, loggedIn]);
+  }, [dirty, loggedIn, memes]);
 
 
   const addMeme = (meme) => {

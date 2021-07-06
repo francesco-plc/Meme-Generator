@@ -1,7 +1,8 @@
 import { Row, Button, Form, Card, Alert, Container } from 'react-bootstrap';
 import { useState } from 'react';
-import userPlaceholder from '../images/pepe.jpg';
-import userPlaceholder2 from '../images/joinus.jpg'
+/* import userPlaceholder1 from '../images/pepe.jpg';
+import userPlaceholder2 from '../images/joinus.jpg'; */
+import userPlaceholder3 from '../images/isaid.jpg';
 
 /* Account Info Placeholder */
 function AccountInfo(props) {
@@ -17,7 +18,7 @@ function AccountInfo(props) {
         </p>
         <hr />
         <p className="mb-0">
-        <Button className="btn-sm" variant="danger" className="button" onClick={doLogOut}>Log Out</Button>
+        <Button className="btn-sm button" variant="danger" onClick={doLogOut}>Log Out</Button>
         </p>
       </Alert>
   );
@@ -52,11 +53,11 @@ function LoginForm(props) {
   };
 
   return (
-    <Container>
+    <Container className="loginPage">
       <Row className="mt-5 justify-content-center">
       <Card className="text-center logCard mt-5">
         <Card.Body>
-          <Card.Img variant="info" src={userPlaceholder2} alt="imagePlaceholder2" className="logImg my-4" />
+          <Card.Img variant="info" src={userPlaceholder3} alt="imagePlaceholder3" className="logImg my-4" />
           <Form>
             <Form.Group className="text-left my-4" controlId="username">
               <Form.Label>Username:</Form.Label>
