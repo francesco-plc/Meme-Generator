@@ -9,6 +9,7 @@ import NavBar from './components/Navbar';
 import DashBoard from './components/DashBoard';
 import UserDashBoard from './components/UserDashBoard'
 import Generator from './components/Generator';
+import PageNotFound from './components/PageNotFound';
 import API from './api/API';
 
 function App() {
@@ -177,6 +178,10 @@ function App() {
 
           <Route exact path="/login">
             <LoginForm doLogIn={doLogIn} />
+          </Route>
+
+          <Route>
+            <PageNotFound />
           </Route>
         </Switch>
       </div>
