@@ -5,12 +5,13 @@ import society from "../images/society.jpg";
 import tuba from "../images/tuba.jpg";
 import they from "../images/they.jpg";
 import better from "../images/better.jpg";
+import cringe from "../images/cringe.jpg";
 
 
 const Templates = [
     {
         img: corporate,
-        box_count: 2
+        box_count: 3
     },
     {
         img: doge,
@@ -35,6 +36,10 @@ const Templates = [
     {
         img: better,
         box_count: 4
+    },
+    {
+        img: cringe,
+        box_count: 2
     }
 ]
 

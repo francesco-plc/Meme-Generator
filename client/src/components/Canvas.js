@@ -47,7 +47,8 @@ function Canvas(props) {
         switch (count) {
             case 0:
                 ctx.fillText(capt[0], ctx.canvas.width * 0.3, ctx.canvas.height * 0.2);
-                ctx.fillText(capt[1], ctx.canvas.width * 0.8, ctx.canvas.height * 0.3);
+                ctx.fillText(capt[1], ctx.canvas.width * 0.8, ctx.canvas.height * 0.3);               
+                ctx.fillText(capt[2], ctx.canvas.width * 0.66, ctx.canvas.height * 0.87);
                 break;
             case 1:
                 ctx.fillText(capt[0], ctx.canvas.width * 0.37, ctx.canvas.height * 0.08);
@@ -75,6 +76,10 @@ function Canvas(props) {
                 ctx.fillText(capt[1], ctx.canvas.width * 0.75, ctx.canvas.height * 0.48);
                 ctx.fillText(capt[2], ctx.canvas.width * 0.25, ctx.canvas.height * 0.98);
                 ctx.fillText(capt[3], ctx.canvas.width * 0.75, ctx.canvas.height * 0.98);
+                break;
+            case 7:
+                ctx.fillText(capt[0], ctx.canvas.width * 0.5, ctx.canvas.height * 0.09);
+                ctx.fillText(capt[1], ctx.canvas.width * 0.5, ctx.canvas.height * 0.35);
                 break;
             default:
                 break;

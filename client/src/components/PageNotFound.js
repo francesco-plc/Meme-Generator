@@ -13,7 +13,7 @@ function PageNotFound() {
   return (
     <>
       <h1 className="below-nav text-center">Page Not Found</h1>
-      <img src={image} className="notFound"/>
+      <img src={image} alt="weknowthatfeel" className="notFound"/>
       <h4 className="text-center mt-1">
         I know, that's not what you where looking for...
         <br/>But you can always come back to the<br/>

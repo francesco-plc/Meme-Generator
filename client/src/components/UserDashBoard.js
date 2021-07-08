@@ -6,8 +6,8 @@ function UserDashBoard (props){
     const {userMemes, deleteMeme} = props;
 
     return(
-        <Container fluid >
-            <Row xs={1} md={2} className="g-4 vheight-100 width-100 mx-auto">
+        <Container fluid>
+            <Row xs={1} md={2} className="g-4 width-100 mx-auto">
                 {userMemes.map((m, idx) => (
                     <Col md={{ span: 6, offset: 3 }} key={idx}>
                         <Card /* bg="light" */ className="my-2 dashcard">
@@ -49,6 +49,7 @@ function UserDashBoard (props){
                                 </Row>
                             </Card.Body>
                     </Card>
+                    <br/>
                     </Col>
                 ))}
             </Row>

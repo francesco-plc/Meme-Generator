@@ -155,7 +155,7 @@ function Generator(props) {
                     break;
             }
         }
-    }, [count]);
+    }, [count, copy]);
   
     console.log("userId: " + userId);
     //console.log("meme user: " + copy.user);
