@@ -19,7 +19,7 @@
 
 .toolbar {
   background-color: #17a2b8;
-  color:B;
+  color:whitesmoke;
   padding: 2rem;
   border-radius: 2rem;
   height: 38rem;
@@ -84,7 +84,7 @@
   font-family: "Lucida Handwriting", cursive;
 }
 #option3{
-  font-family: "Copperplate", fantasy;
+  font-family: Impact, fantasy;
 }
 #option4{
   	font-family: "Courier New", monospace;
@@ -94,6 +94,9 @@
 }
 #option6{
   font-family: "Times New Romam", Times, serif;
+}
+#option7{
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
 .pink{

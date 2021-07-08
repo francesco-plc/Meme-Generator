@@ -1,9 +1,8 @@
 import {Container, Row, Col, Form, Button, Card} from 'react-bootstrap';
-import {Templates, Colors} from '../models/Templates';
+import {Templates} from '../models/Templates';
 import { iconLeft, iconRight, iconCheck } from './Icons';
 import { useEffect, useState, useRef } from 'react';
 import { useLocation } from "react-router-dom";
-import { CirclePicker } from 'react-color';
 import Canvas from './Canvas';
 import Meme from '../models/Meme'
 
@@ -20,7 +19,7 @@ function Generator(props) {
                                         Array(Templates[count].box_count).fill('')                   // captions array
                                     );                                                                                                  
     const [temp, setTemp] = useState(copy ? Templates[copy.id_template].img : Templates[count].img );// template set
-    const [color, setColor] = useState(copy ? copy.color : Colors[0]);                               // color set
+    const [color, setColor] = useState(copy ? copy.color : "#000000");                               // color set
     const [font, setFont] = useState(copy? copy.font : "Arial");                                     // font set
     const [size, setSize] = useState(copy ? copy.size : 50);                                         // font size set
     const [isProtected, setIsProtected] = useState(copy ? copy.isProtected : false);                 // public/protected attribute
@@ -66,10 +65,6 @@ function Generator(props) {
             })
         );
         setIsCaptInvalid(false);
-    };
-
-    const handleChangeComplete = (color, event) => {
-        setColor(color.hex);
     };
 
     const handleChangeFont = (e) => {
@@ -190,6 +185,7 @@ function Generator(props) {
                         </Card.Footer>
                     </Card>
                 </Col>
+                
                 {/* image editor space */}
                 <Col xs={12} sm={12} md={6} lg={6} >
                     <Form className='toolbar below-img width-100'>
@@ -211,7 +207,7 @@ function Generator(props) {
                                         {`Caption ${idx+1}`}
                                     </Form.Label>
                                     <Col xs={8}>
-                                        <Form.Control rows={2} as="textarea" placeholder="Insert text" defaultValue={capt[idx]}
+                                        <Form.Control type="text" placeholder="Insert text" defaultValue={capt[idx]}
                                             isInvalid={isCaptInvalid} onChange={(e)=>updateCapt(e, idx)}
                                         />
                                         <Form.Control.Feedback type="invalid">At least a caption must be provided.</Form.Control.Feedback>
@@ -228,17 +224,18 @@ function Generator(props) {
                                 <Form.Control as="select" onChange={handleChangeFont} defaultValue={font}>
                                     <option value="Arial" id="option1">Arial</option>
                                     <option value="Lucida Handwriting" id="option2">Lucida Handwriting</option>
-                                    <option value="Copperplate" id="option3">Copperplate</option>
+                                    <option value="Impact" id="option3">Impact</option>
                                     <option value="Courier New" id="option4">Courier New</option>
                                     <option value="Lucida Console" id="option5">Lucida Console</option>
                                     <option value="Times New Roman" id="option6">Times New Roman</option>
+                                    <option value="Comic Sans MS" id="option7">Comic Sans MS</option>                                    
                                 </Form.Control>
                             </Col>
                         </Form.Group>
                         {/* Font size range*/}
                         <Form.Group as={Row} controlId="textRange">
                             <Form.Label column xs={4}>Size:</Form.Label>
-                            <Col md={4} sm={4} xs={6} className="mt-2">
+                            <Col md={4} sm={4} xs={6} className="my-auto mx-auto">
                                <input type="range" className="custom-range" id="customRange1" 
                                 min="10" max="120" step="2"
                                 value={size}
@@ -247,17 +244,18 @@ function Generator(props) {
                             </Col>
                         </Form.Group>
                         {/* Color Picker */}
-                        <Form.Group as={Row} controlId="colorPicker" >
-                            <Form.Label column xs={4}>
+                        <Form.Group as={Row} >
+                            <Form.Label column xs={4} htmlFor="ColorInput">
                                 Color:
                             </Form.Label>
-                            <Col xs={8} className="mt-1">
-                                <CirclePicker
-                                    width="294px"
-                                    circleSize={28}
-                                    colors={Colors}
-                                    color={color}
-                                    onChangeComplete={handleChangeComplete} />
+                            <Col xs={3} className="my-auto mx-auto" >
+                                <Form.Control
+                                    type="color"
+                                    id="ColorInput"
+                                    defaultValue={color}
+                                    title="Choose your color"
+                                    onChange={(event) => setColor(event.target.value)}
+                                />
                             </Col>
                         </Form.Group>
                         {/* Public/Protected switch */}
@@ -271,8 +269,7 @@ function Generator(props) {
                                     label={isProtected ? 'Protected' : 'Public'}
                                     disabled={isSwitchDisabled}
                                 />
-                            </Col>{/* 
-                            <Col xs={10} className="text-left">Set as protected</Col> */}
+                            </Col>
                         </Form.Group>
                         {/*Generate Meme Button*/}
                         <Form.Group as={Row}>

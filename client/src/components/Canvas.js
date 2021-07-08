@@ -4,44 +4,7 @@ function Canvas(props) {
 
     const { temp, capt, count, color, font, size, canvasRef } = props;
     
-
-    useEffect((meme = new Image()) => {
-
-        meme.src = temp;
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        ctx.canvas.width = window.innerWidth;
-        ctx.canvas.height = window.innerHeight;
-
-        setTimeout(() => {
-            ctx.drawImage(meme, 0, 0, window.innerWidth, window.innerHeight);
-
-            if (capt) {
-                drawText(count, ctx);
-            };
-        }, 400);
-        
-    }, [temp]);
-
-    useEffect((meme = new Image()) => {
-
-        meme.src = temp;
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-
-        ctx.canvas.width = window.innerWidth;
-        ctx.canvas.height = window.innerHeight;
-        ctx.font = `${size}px ${font}` 
-        ctx.fillStyle = color
-        ctx.textAlign = "center"
-        ctx.drawImage(meme, 0, 0, window.innerWidth, window.innerHeight);
-
-        if (capt) {
-            drawText(count, ctx);
-        };
-        
-    }, [capt, color, font, size, temp, canvasRef, count]);
-
+    const meme = new Image();
 
     const drawText = (count, ctx) => {
         switch (count) {
@@ -84,7 +47,44 @@ function Canvas(props) {
             default:
                 break;
         };
-    }
+    }; 
+
+    useEffect(() => {
+
+        meme.src = temp;
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        ctx.canvas.width = window.innerWidth;
+        ctx.canvas.height = window.innerHeight;
+
+        setTimeout(() => {
+            ctx.drawImage(meme, 0, 0, window.innerWidth, window.innerHeight);
+            if (capt) {
+                drawText(count, ctx);
+            };
+        }, 400);
+        // eslint-disable-next-line
+    }, [temp]);
+
+    useEffect(() => {
+
+        meme.src = temp;
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+
+        ctx.canvas.width = window.innerWidth;
+        ctx.canvas.height = window.innerHeight;
+        ctx.font = `${size}px ${font}` 
+        ctx.fillStyle = color
+        ctx.textAlign = "center"
+        ctx.drawImage(meme, 0, 0, window.innerWidth, window.innerHeight);
+
+        if (capt) {
+            drawText(count, ctx);
+        };
+        // eslint-disable-next-line
+    }, [capt, color, font, size, temp, canvasRef, count]);
+
 
     return <canvas ref={canvasRef} className="canvas" />
 }
