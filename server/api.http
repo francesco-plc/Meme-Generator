@@ -1,5 +1,5 @@
 //get all public memes test - OK
-GET http://localhost:3001/api/memes/public
+GET http://localhost:3001/api/memes
 
 
 ###

@@ -8,7 +8,7 @@ const db = new sqlite.Database('db.sqlite', (err) => {
 
 //get all (public & protected) memes 
 exports.getAllMemes = () => new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM memes';
+    const sql = 'SELECT memes.id, memes.id_template, memes.title, memes.text0, memes.text1, memes.text2, memes.text3, memes.color, memes.font, memes.size, memes.isProtected, memes.image, memes. user, users.name FROM memes INNER JOIN users ON memes.user=users.id';;
     db.all(sql, [], (err, rows) => {
         if (err) {
             reject(err);
@@ -30,7 +30,7 @@ exports.getAllMemes = () => new Promise((resolve, reject) => {
                 isProtected: m.isProtected,
                 image: m.image,
                 user: m.user,
-                username: m.username,
+                username: m.name,
             }));
 
         resolve(memes);
@@ -39,7 +39,7 @@ exports.getAllMemes = () => new Promise((resolve, reject) => {
 
 //get all public memes
 exports.getPublicMemes = () => new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM memes WHERE isProtected = 0';
+    const sql = 'SELECT memes.id, memes.id_template, memes.title, memes.text0, memes.text1, memes.text2, memes.text3, memes.color, memes.font, memes.size, memes.isProtected, memes.image, memes.user, users.name FROM memes INNER JOIN users ON memes.user=users.id WHERE isProtected = 0';
     db.all(sql, [], (err, rows) => {
         if (err) {
             reject(err);
@@ -61,7 +61,7 @@ exports.getPublicMemes = () => new Promise((resolve, reject) => {
                 isProtected: m.isProtected,
                 image: m.image,
                 user: m.user,
-                username: m.username,
+                username: m.name,
             }));
 
         resolve(memes);
@@ -69,7 +69,7 @@ exports.getPublicMemes = () => new Promise((resolve, reject) => {
 });
 //get all the user's memes
 exports.getUserMemes = (user) => new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM memes WHERE user = ?';
+    const sql = 'SELECT memes.id, memes.id_template, memes.title, memes.text0, memes.text1, memes.text2, memes.text3, memes.color, memes.font, memes.size, memes.isProtected, memes.image, memes. user, users.name FROM memes INNER JOIN users ON memes.user=users.id WHERE user = ?';
     db.all(sql, [user], (err, rows) => {
         if (err) {
             reject(err);
@@ -91,7 +91,7 @@ exports.getUserMemes = (user) => new Promise((resolve, reject) => {
                 isProtected: m.isProtected,
                 image: m.image,
                 user: m.user,
-                username: m.username,
+                username: m.name,
             }));
 
         resolve(memes);
@@ -100,7 +100,7 @@ exports.getUserMemes = (user) => new Promise((resolve, reject) => {
 
 //add a meme
 exports.addMeme = (userId, meme) => new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO memes (id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected, image, user, username) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    const sql = 'INSERT INTO memes (id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected, image, user) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)';
     db.run(sql, [
         this.lastID,
         meme.id_template,
@@ -114,8 +114,7 @@ exports.addMeme = (userId, meme) => new Promise((resolve, reject) => {
         meme.size,
         meme.isProtected,
         meme.image,
-        userId,
-        meme.username],
+        userId],
         (err) => {
             if (err) {
                 reject(err);
@@ -125,7 +124,7 @@ exports.addMeme = (userId, meme) => new Promise((resolve, reject) => {
         });
 });
 
-//get a meme (copy)
+//get a meme (copy) TO DELETE
 exports.getMeme = (memeId) => new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM memes WHERE id = ?';
     db.get(sql, [memeId], (err, row) => {
@@ -164,6 +163,18 @@ exports.deleteMeme = (userId, memeId) => new Promise((resolve, reject) => {
         } else resolve(null);
     });
 });
+
+//change privacy(public/protected)
+exports.setState = (userId, memeId) => new Promise((resolve, reject) => {
+    const sql = 'UPDATE memes SET isProtected = CASE WHEN isProtected = 0 THEN 1 ELSE 0 END WHERE user = ? AND id = ?';
+    db.run(sql, [userId, memeId], (err) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(null);
+    });
+  });
 
 // get user
 exports.getUser = (email, password) => new Promise((resolve, reject) => {

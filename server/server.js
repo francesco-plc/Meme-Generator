@@ -112,7 +112,6 @@ app.post('/api/memes', isLoggedIn, async (req, res) => {
     size: req.body.size,
     isProtected: req.body.isProtected,
     image: req.body.image,
-    username: req.body.username,
   };
 
   try {
@@ -142,7 +141,6 @@ app.post('/api/copy', isLoggedIn, async (req, res) => {
     size: req.body.size,
     isProtected: 1,
     image: req.body.image,
-    username: req.body.username,
   };
 
   try {
@@ -163,6 +161,19 @@ app.delete('/api/memes/:id', isLoggedIn, async (req, res) => {
     res.status(204).end();
   } catch (err) {
     res.status(503).json({ error: `Database error during the deletion of meme: ${req.params.id}.` });
+  }
+});
+
+//change privacy(public/protected)
+app.put('/api/memes/:id', isLoggedIn, async (req, res) => {
+  const userId = req.user.id;
+  const memeId = req.params.id;
+
+  try {
+    await dao.setState(userId, memeId);
+    res.status(204).end();
+  } catch (err) {
+    res.status(503).json({ error: `Database error during the updating of the privacy of the meme: ${req.params.id}.` });
   }
 });
 

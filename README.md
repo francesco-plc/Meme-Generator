@@ -118,8 +118,6 @@
 
       "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABgAAAALbCAYAAAA8WEuUAAAg...",
 
-      "username": "maurizio",
-
     }
 
     \```
@@ -155,8 +153,6 @@
       "size": 50,
 
       "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABgAAAALbCAYAAAA8WEuUAAAg...",
-
-      "username": "maurizio",
 
     }
 
@@ -199,7 +195,7 @@
 
   
 
-- Table `memes` - contains: id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected, image, user(id of the user), username.
+- Table `memes` - contains: id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected, image, user.
 
 ## Main React Components
 

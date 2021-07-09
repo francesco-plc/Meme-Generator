@@ -41,7 +41,7 @@ function loadUserMemes() {
     });
 };
 
-//TO DO: TEST THIS API (map is correct??)
+//TO DO: TEST THIS API (map is correct??) TO DELETE
 function loadMeme(meme) {
     return new Promise((resolve, reject) => {
         fetch(`${url}/api/memes/${meme.id}`).then((response) => {
@@ -71,7 +71,6 @@ async function addNewMeme(meme) {
             size: meme.size,
             isProtected: meme.isProtected,
             image: meme.image,
-            username: meme.username,
         }),
     });
     if (response.ok) {
@@ -95,7 +94,6 @@ async function copyMeme(meme) {
             size: meme.size,
             isProtected: 1,
             image: meme.image,
-            username: meme.username,
         }),
     });
     if (response.ok) {
