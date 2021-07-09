@@ -1,9 +1,15 @@
-import {Row, Col, Card, Container, Button} from 'react-bootstrap';
+import {Row, Col, Card, Container, Button, Tooltip, OverlayTrigger} from 'react-bootstrap';
 import { iconDelete, iconProtected, iconPublic } from './Icons';
 
 function UserDashBoard (props){
 
-    const {userMemes, deleteMeme} = props;
+    const {userMemes, deleteMeme, changePrivacy} = props;
+
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" className="tooltip-inner tooltip-bottom " {...props}>
+          Click here to change the privacy
+        </Tooltip>
+      );
 
     return(
         <Container fluid>
@@ -29,19 +35,29 @@ function UserDashBoard (props){
                             <Card.Body>
                                 <Row>
                                     <Col xs={6} className="text-left">
-                                        {/* <Card.Text>
-                                            Created by: {m.user}
-                                        </Card.Text> */}
+                                        
                                     </Col>
                                     <Col>
                                         {m.isProtected ?
                                             (
                                                 <Card.Text xs={6} className="text-right">
-                                                    Privacy: {iconProtected}
+                                                    <OverlayTrigger
+                                                        placement="bottom"
+                                                        delay={{ show: 250, hide: 400 }}
+                                                        overlay={renderTooltip}
+                                                    >
+                                                        <Button className="button btn-sm" variant="outline-dark" onClick={() => changePrivacy(m.id)} >Privacy: {iconProtected}</Button>
+                                                    </OverlayTrigger>
                                                 </Card.Text>
                                             ) : (
                                                 <Card.Text xs={6} className="text-right">
-                                                    Privacy: {iconPublic}
+                                                    <OverlayTrigger
+                                                        placement="bottom"
+                                                        delay={{ show: 250, hide: 400 }}
+                                                        overlay={renderTooltip}
+                                                    >
+                                                    <Button className="button btn-sm" variant="outline-dark" onClick={() => changePrivacy(m.id)}>Privacy: {iconPublic}</Button>
+                                                    </OverlayTrigger>
                                                 </Card.Text>
                                             )
                                         }

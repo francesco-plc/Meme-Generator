@@ -165,7 +165,7 @@ app.delete('/api/memes/:id', isLoggedIn, async (req, res) => {
 });
 
 //change privacy(public/protected)
-app.put('/api/memes/:id', isLoggedIn, async (req, res) => {
+app.put('/api/memes/user/:id', isLoggedIn, async (req, res) => {
   const userId = req.user.id;
   const memeId = req.params.id;
 

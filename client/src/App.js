@@ -99,6 +99,17 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const changePrivacy = (id) => {
+    setMemes((oldMemes) => oldMemes.map((m) => {
+      if (m.id === id) return id;
+      return m;
+    }));
+
+    API.changePrivacy(id)
+      .then(setDirty(true))
+      .catch((err) => console.log(err));
+  };
+
   const doLogIn = (username, password) => {
     API.logIn(username, password).then(([name, id]) => {
       setUserName(name);
@@ -168,6 +179,7 @@ function App() {
                 <UserDashBoard
                   userMemes={userMemes}
                   deleteMeme={deleteMeme}
+                  changePrivacy={changePrivacy}
                 />
                 </div>                
               ) : (

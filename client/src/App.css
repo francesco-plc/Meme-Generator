@@ -150,6 +150,16 @@
   background-color: #17a2b8;
 }
 
+.tooltip-inner {
+  background-color: white !important;
+  color: black !important; 
+  
+}
+
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: white!important;
+}
+
 @media screen and (max-width: 992px){
   .meme{
     height: 30rem;
