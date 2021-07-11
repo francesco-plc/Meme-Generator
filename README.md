@@ -12,13 +12,13 @@
 
 ## API Server
 
-- GET `/api/memes` \+ [`/public, /user`]  
+- GET `/api/memes` + [`/public, /user`]  
 
   - Request parameters: *None*
 
-  - Response body content:  An array of objects, each describing a **meme** (`/api/memes` retrieves all memes public and protected, `/api/memes/public` retrieves only public ones, `/api/memes/user` retrieves only logged in user's memes) .
+  - Response body content:  An array of objects, each describing a **meme** (`/api/memes` retrieves all memes public and protected, `/api/memes/public` retrieves only public ones, `/api/memes/user` retrieves only logged in user's memes).
 
-    \```
+    ```
 
     [{
 
@@ -86,13 +86,13 @@
 
     ]
 
-    \```
+    ```
 
 - POST `/api/memes`
 
   - Request parameters and request body content :An object representing a meme (Content-Type: application/json).
 
-    \```
+    ```
 
     {
 
@@ -120,7 +120,7 @@
 
     }
 
-    \```
+    ```
 
   - Response body: None
 
@@ -130,7 +130,7 @@
 
     This api is called when copying a protected meme from another creator, therefore "**isProtected**" attribute is forced to 1 (*and not passed in the request body*) in order to double check it and avoid relying only on the client side.
 
-    \```
+    ```
 
     {
 
@@ -156,7 +156,7 @@
 
     }
 
-    \```
+    ```
 
   - Response body: *None*
 
