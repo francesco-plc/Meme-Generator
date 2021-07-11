@@ -212,7 +212,7 @@
 
 ## Screenshot
 
-![Screenshot](.\client\src\images\screenshot.jpg)
+![Screenshot](.\client\src\images\screenshot.JPG)
 
 <br/>
 
