@@ -26,7 +26,7 @@ function NavBar(props){
             <Col xs={5} className="text-right">
                 <Navbar.Text className="mr-2">
                     {loggedIn ? (
-                        <small>Welcome! <Link to="/account">{userName}</Link></small>
+                        <small> Hi, <Link to="/account">{userName}</Link></small>
                     ) : (<Link to="/login">
                         Login
                     </Link>)

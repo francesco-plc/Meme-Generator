@@ -42,7 +42,7 @@ function Canvas(props) {
                 break;
             case 7:
                 ctx.fillText(capt[0], ctx.canvas.width * 0.5, ctx.canvas.height * 0.09);
-                ctx.fillText(capt[1], ctx.canvas.width * 0.5, ctx.canvas.height * 0.35);
+                ctx.fillText(capt[1], ctx.canvas.width * 0.5, ctx.canvas.height * 0.33);
                 break;
             default:
                 break;

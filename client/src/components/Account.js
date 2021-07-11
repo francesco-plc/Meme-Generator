@@ -60,9 +60,9 @@ function LoginForm(props) {
           <Card.Img variant="info" src={userPlaceholder3} alt="imagePlaceholder3" className="logImg my-4" />
           <Form>
             <Form.Group className="text-left my-4" controlId="username">
-              <Form.Label>Username:</Form.Label>
-              <Form.Control isInvalid={invalidUsername} placeholder="Enter Username" type="email" value={username} onChange={handleChange} />
-              <Form.Control.Feedback type="invalid">Please insert username.</Form.Control.Feedback>
+              <Form.Label>Email:</Form.Label>
+              <Form.Control isInvalid={invalidUsername} placeholder="Enter Email" type="email" value={username} onChange={handleChange} />
+              <Form.Control.Feedback type="invalid">Please insert Email.</Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="text-left mb-4" controlId="password">
               <Form.Label>Password:</Form.Label>

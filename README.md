@@ -160,6 +160,12 @@
 
   - Response body: *None*
 
+- PUT `/api/memes/user/<id>`
+
+  - Request parameter: **id** of the meme whose privacy you want to update
+  - Request body: *None*
+  - Response body: *None*
+
 - DELETE `/api/memes/<id>`
 
   - Request parameter: **id** of the meme to delete
@@ -185,17 +191,9 @@
 
 ## Database Tables
 
-- Table `users` :
+- Table `users` - contains: `id, email, name, password`.  
 
-  | id   | email          | name  | password  |
-  | ---- | -------------- | ----- | --------- |
-  | 0    | test1@email.it | test1 | password1 |
-  | 1    | test2@email.it | test2 | password2 |
-  | 2    |                |       |           |
-
-  
-
-- Table `memes` - contains: id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected, image, user.
+- Table `memes` - contains: `id, id_template, title, text0, text1, text2, text3, color, font, size, isProtected, image, user`.
 
 ## Main React Components
 
@@ -210,11 +208,19 @@
 - `LoginForm` (in `Account.js`):  literally a login form.
 - `PageNotFound` (in `PageNotFound.js`):  a component that renders each time a user access undefined route, simply shows a page not found message with a "return to homepage" button.
 
+<br/>
+
 ## Screenshot
 
-![Screenshot](./img/screenshot.jpg)
+![Screenshot](.\client\src\images\screenshot.jpg)
+
+<br/>
 
 ## Users Credentials
 
-- username, password (plus any other requested info)
-- username, password (plus any other requested info)
+  | email          | name  | password  | memes created - titles | memes copied - titles |
+  | -------------- | ----- | --------- | ---------------------- | --------------------- |
+  | test1@email.it | test1 | password1 |                        |                       |
+  | test2@email.it | test2 | password2 |                        |                       |
+  | test3@email.it | test3 | password3 |                        |                       |
+
