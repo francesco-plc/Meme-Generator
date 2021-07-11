@@ -90,7 +90,8 @@
 
 - POST `/api/memes`
 
-  - Request parameters and request body content :An object representing a meme (Content-Type: application/json).
+  - Request parameters: *None*
+  - Request body content :An object representing a meme (Content-Type: application/json).
 
     ```
 
@@ -126,7 +127,8 @@
 
 - POST `/api/copy`
 
-  - Request parameters and request body content : An object representing a meme (Content-Type: application/json).
+  - Request parameters: *None*
+  - Request body content : An object representing a meme (Content-Type: application/json).
 
     This api is called when copying a protected meme from another creator, therefore "**isProtected**" attribute is forced to 1 (*and not passed in the request body*) in order to double check it and avoid relying only on the client side.
 
@@ -218,9 +220,9 @@
 
 ## Users Credentials
 
-  | email          | name  | password  | memes created - titles | memes copied - titles |
-  | -------------- | ----- | --------- | ---------------------- | --------------------- |
-  | test1@email.it | test1 | password1 |                        |                       |
-  | test2@email.it | test2 | password2 |                        |                       |
-  | test3@email.it | test3 | password3 |                        |                       |
+  | email          | password  | memes created - titles | memes copied - titles |
+  | -------------- | --------- | ---------------------- | --------------------- |
+  | maurizio@email.it | password1 |                        |                       |
+  | fulvio@email.it | password2 |                        |                       |
+  | alessandro@email.it | password3 |                        |                       |
 
