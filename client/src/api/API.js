@@ -41,20 +41,6 @@ function loadUserMemes() {
     });
 };
 
-//TO DO: TEST THIS API (map is correct??) TO DELETE
-function loadMeme(meme) {
-    return new Promise((resolve, reject) => {
-        fetch(`${url}/api/memes/${meme.id}`).then((response) => {
-            if (response.ok) {
-                response.json().then((json) => {
-                    const memes = json.map((memeJson) => Meme.from(memeJson));
-                    resolve(memes);
-                }).catch((err) => reject(err));
-            } else reject();
-        }).catch((err) => reject(err));
-    });
-};
-
 async function addNewMeme(meme) {
     const response = await fetch(`${url}/api/memes`, {
         method: 'POST',
@@ -184,7 +170,6 @@ function logOut() {
     loadAllMemes,
     loadPublicMemes,
     loadUserMemes,
-    loadMeme,
     addNewMeme,
     copyMeme,
     deleteMeme,
