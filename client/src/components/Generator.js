@@ -28,14 +28,18 @@ function Generator(props) {
     const[isTitleInvalid, setIsTitleInvalid] = useState(false);                                      // variable to check if title is filled
     const[isCaptInvalid, setIsCaptInvalid] = useState(false);                                        // variable to check if a captions is filled
 
-    const isButtonDisabled = (copy ? true : false);
-    const isSwitchDisabled = ((copy && copy.user !== userId && copy.isProtected)? true : false);
+    const isButtonDisabled = (copy ? true : false);                                                  // to disable buttons when copying
+    const isSwitchDisabled = ((copy && userId !== copy.user && copy.isProtected)? true : false);     // to disable privacy switch when copying a protected meme of another user
+
+    const [ready, setReady] = useState(true);                                                        // support variable to set the canvas template only one time (first canvas useEffect)
+    const meme = new Image();
 
     const changeIndex = (event) => {
         event.preventDefault();
+        setReady(true)
         if(event.target.id === "prev"){
             if(count === 0){
-                setCount(Templates.length - 1)
+                setCount(Templates.length - 1);
             }else{
                 setCount(prevCount => prevCount - 1);
             }
@@ -127,6 +131,7 @@ function Generator(props) {
         }
     }
 
+    //to update box count, template and captions whenever count change or a copy is set
     useEffect(() => {
         setTemp(Templates[count].img);
         setBoxCount(Templates[count].box_count);
@@ -153,12 +158,6 @@ function Generator(props) {
     }, [count, copy]);
   
     console.log("userId: " + userId);
-    //console.log("meme user: " + copy.user);
-    console.log("title: " + title );
-    console.log("capt: " + capt);
-    console.log("font: " + font);
-    console.log("size: " + size);
-    console.log("isProtected: " + isProtected);
 
     return(
         <Container fluid className='below-nav width-100 generator pink'>
@@ -175,6 +174,10 @@ function Generator(props) {
                                 font={font}
                                 size={size}
                                 canvasRef={canvasRef}
+                                copy={copy}
+                                meme={meme}
+                                ready={ready}
+                                setReady={setReady}
                             />
                         </Card.Body>
                         {/* previous/Next button */}
