@@ -3,7 +3,7 @@
 const express = require('express');
 const morgan = require('morgan'); // logging middleware
 const session = require('express-session'); // session middleware
-const { check, validationResult } = require('express-validator'); // validation middleware
+const { check, oneOf } = require('express-validator'); // validation middleware
 const passport = require('passport');
 const passportLocal = require('passport-local');
 
@@ -23,11 +23,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
-  // Format express-validate errors as strings
-  return `${location}[${param}]: ${msg}`;
-};
 
 passport.use(new passportLocal.Strategy((username, password, done) => {
   dao.getUser(username, password).then((user) => {
@@ -63,37 +58,45 @@ const isLoggedIn = (req, res, next) => {
 
 
 // Retrieve ALL created memes (both PUBLIC and PROTECTED)
-app.get('/api/memes', isLoggedIn, (req, res) => {
+app.get('/api/memes', isLoggedIn, [check('id').isInt(), check('isProtected').isInt()], (req, res) => {
   dao.getAllMemes()
     .then((memes) => { res.json(memes); })
     .catch((error) => { res.status(500).json(error); });
 });
 
 // Retrieve all PUBLIC memes 
-app.get('/api/memes/public', (req, res) => {
+app.get('/api/memes/public', [check('id').isInt(), check('isProtected').isInt()], (req, res) => {
   dao.getPublicMemes()
     .then((memes) => { res.json(memes); })
     .catch((error) => { res.status(500).json(error); });
 });
 
 // Retrieve all USER's memes
-app.get('/api/memes/user', isLoggedIn, (req, res) => {
+app.get('/api/memes/user', isLoggedIn, [check('id').isInt(), check('isProtected').isInt()], (req, res) => {
   const userId = req.user.id;
   dao.getUserMemes(userId)
     .then((memes) => { res.json(memes); })
     .catch((error) => { res.status(500).json(error); });
 });
 
-// Retrieve a meme (copy)
-app.get('/api/memes/:id', isLoggedIn, (req, res) => {
-  const memeId = req.params.id;
-  dao.getMeme(memeId)
-    .then((memes) => { res.json(memes); })
-    .catch((error) => { res.status(500).json(error); });
-});
-
 // Create a new meme
-app.post('/api/memes', isLoggedIn, async (req, res) => {
+app.post('/api/memes', isLoggedIn, [
+  check('id').isInt(), 
+  check('id_template').isInt(),
+  check('title').notEmpty(),
+  oneOf([
+    check('text0').notEmpty(),
+    check('text1').notEmpty(),
+    check('text2').notEmpty(),
+    check('text3').notEmpty()
+  ]),
+  check('color').notEmpty(),
+  check('font').notEmpty(),
+  check('size').notEmpty(),
+  check('isProtected').isInt(),
+  check('image').notEmpty(),
+  check('user').isInt()
+  ], async (req, res) => {
   const userId = req.user.id;
   const text0 = req.body.text0 === undefined ? null : req.body.text0;
   const text1 = req.body.text1 === undefined ? null : req.body.text1;
@@ -122,7 +125,23 @@ app.post('/api/memes', isLoggedIn, async (req, res) => {
 });
 
 // Create a new meme from a protected one (copy)
-app.post('/api/copy', isLoggedIn, async (req, res) => {
+app.post('/api/copy', isLoggedIn, [
+  check('id').isInt(), 
+  check('id_template').isInt(),
+  check('title').notEmpty(),
+  oneOf([
+    check('text0').notEmpty(),
+    check('text1').notEmpty(),
+    check('text2').notEmpty(),
+    check('text3').notEmpty()
+  ]),
+  check('color').notEmpty(),
+  check('font').notEmpty(),
+  check('size').notEmpty(),
+  check('isProtected').isInt(),
+  check('image').notEmpty(),
+  check('user').isInt()
+  ], async (req, res) => {
   const userId = req.user.id;
   const text0 = req.body.text0 === undefined ? null : req.body.text0;
   const text1 = req.body.text1 === undefined ? null : req.body.text1;
@@ -151,7 +170,7 @@ app.post('/api/copy', isLoggedIn, async (req, res) => {
 });
 
 // delete a meme
-app.delete('/api/memes/:id', isLoggedIn, async (req, res) => {
+app.delete('/api/memes/:id', isLoggedIn, [check('id').isInt()], async (req, res) => {
   const userId = req.user.id;
   const memeId = req.params.id;
 
@@ -164,7 +183,7 @@ app.delete('/api/memes/:id', isLoggedIn, async (req, res) => {
 });
 
 //change privacy(public/protected)
-app.put('/api/memes/user/:id', isLoggedIn, async (req, res) => {
+app.put('/api/memes/user/:id', isLoggedIn, [check('id').isInt()], async (req, res) => {
   const userId = req.user.id;
   const memeId = req.params.id;
 

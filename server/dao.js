@@ -124,36 +124,6 @@ exports.addMeme = (userId, meme) => new Promise((resolve, reject) => {
         });
 });
 
-//get a meme (copy) TO DELETE
-exports.getMeme = (memeId) => new Promise((resolve, reject) => {
-    const sql = 'SELECT * FROM memes WHERE id = ?';
-    db.get(sql, [memeId], (err, row) => {
-        if (err) {
-            reject(err);
-            return;
-        }
-
-        const meme =
-        {
-            id: row.id,
-            id_template: row.id_template,
-            title: row.title,
-            text0: row.text0,
-            text1: row.text1,
-            text2: row.text2,
-            text3: row.text3,
-            color: row.color,
-            font: row.font,
-            size: row.size,
-            isProtected: row.isProtected,
-            image: row.image,
-            user: row.user,
-            username: row.username
-        };
-        resolve(meme);
-    });
-});
-
 //delete a meme
 exports.deleteMeme = (userId, memeId) => new Promise((resolve, reject) => {
     const sql = 'DELETE FROM memes WHERE user = ? AND id = ?';
