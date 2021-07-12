@@ -23,7 +23,7 @@ function App() {
   const [userId, setUserId] = useState('');
   const routerHistory = useHistory();
 
-  // Rehydrate tasks at mount time
+  // Rehydrate memes at mount time when not logged in
   useEffect(()=>{
     API.loadPublicMemes().then((newM) => {setMemes(newM);});
   }, []);
@@ -37,7 +37,7 @@ function App() {
     }).catch((err) => console.log(err));
   }, []);
 
-  // Rehydrate tasks at mount time, and when tasks are updated
+  // Rehydrate memes at mount time, and when memes are updated (user logged in)
   useEffect(() => {
     if (dirty && loggedIn) {
       API.loadAllMemes()
@@ -58,7 +58,7 @@ function App() {
         }).catch((err) => {
           console.log(err);
         });
-    } else if (dirty && !loggedIn) {
+    }/*  else if (dirty && !loggedIn) {
       API.loadPublicMemes()
         .then((fecthedMemes) => {
           console.log('Load Public Memes');
@@ -70,7 +70,7 @@ function App() {
           setDirty(false);
           console.log(err);
         });
-    }
+    } */
     console.log(memes);
   }, [dirty, loggedIn, memes]);
 
