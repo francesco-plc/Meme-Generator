@@ -16,8 +16,8 @@ function Canvas(props) {
             case 1:
                 ctx.fillText(capt[0], ctx.canvas.width * 0.37, ctx.canvas.height * 0.08);
                 ctx.fillText(capt[1], ctx.canvas.width * 0.75, ctx.canvas.height * 0.48);
-                ctx.fillText(capt[2], ctx.canvas.width * 0.35, ctx.canvas.height * 0.95);
-                ctx.fillText(capt[3], ctx.canvas.width * 0.75, ctx.canvas.height * 0.95);
+                ctx.fillText(capt[2], ctx.canvas.width * 0.35, ctx.canvas.height * 0.98);
+                ctx.fillText(capt[3], ctx.canvas.width * 0.73, ctx.canvas.height * 0.92);
                 break;
             case 2:
                 ctx.fillText(capt[0], ctx.canvas.width * 0.72, ctx.canvas.height * 0.69);

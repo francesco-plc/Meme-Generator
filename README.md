@@ -222,7 +222,7 @@
 
   | email          | password  | memes created - titles | memes copied - titles |
   | -------------- | --------- | ---------------------- | --------------------- |
-  | maurizio@email.it | password1 |                        |                       |
-  | fulvio@email.it | password2 |                        |                       |
-  | alessandro@email.it | password3 |                        |                       |
+  | maurizio@email.it | password1 | "mercy plz",<br/> "I have a dream",<br/> "Boomers™" | "hot memers summer (copy)" |
+  | fulvio@email.it | password2 | "ok polito, i get it, i'll never be enough for you",<br/> "i should have known better" | "Boomers™ (copy)" |
+  | alessandro@email.it | password3 | "hot memers summer", "are you telling me this isn't the exam itself?" | "I have a dream (copy)"  |
 
