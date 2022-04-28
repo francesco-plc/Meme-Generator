@@ -212,12 +212,6 @@
 
 <br/>
 
-## Screenshot
-
-![Screenshot](./client/src/images/screenshot.jpg)
-
-<br/>
-
 ## Users Credentials
 
   | email          | password  | memes created - titles | memes copied - titles |
